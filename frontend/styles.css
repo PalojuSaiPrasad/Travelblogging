@@ -226,3 +226,185 @@ a:hover {
     text-decoration: underline;
     /* Underline on hover */
 }
+
+.post {
+    border: 1px solid #ccc;
+    /* Border around each post */
+    border-radius: 18px;
+    /* Rounded corners */
+    padding: 25px;
+    /* Padding inside the post */
+    margin-bottom: 30px;
+    /* Space between posts */
+    background-color: rgba(44, 42, 42, 0.7);
+    /* Semi-transparent background */
+}
+
+.post-content {
+    display: flex;
+    /* Use flexbox for layout */
+    align-items: center;
+    /* Center items vertically */
+}
+
+.post-image {
+    width: 100px;
+    /* Set a fixed width for the image */
+    height: min-content;
+    /* Maintain aspect ratio */
+    border-radius: 4px;
+    /* Optional: rounded corners */
+    margin-right: 15px;
+    /* Space between image and text */
+}
+
+.modal {
+    display: none;
+    /* Hidden by default */
+    position: fixed;
+    /* Stay in place */
+    z-index: 1000;
+    /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%;
+    /* Full width */
+    height: 100%;
+    /* Full height */
+    overflow: auto;
+    /* Enable scroll if needed */
+    background-color: rgba(0, 0, 0, 0.8);
+    /* Black background with opacity */
+}
+
+.modal-content {
+    margin: auto;
+    display: block;
+    width: 80%;
+    /* Width of the image */
+    max-width: 700px;
+    /* Maximum width */
+}
+
+.close {
+    position: absolute;
+    top: 15px;
+    right: 35px;
+    color: #fff;
+    font-size: 40px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+h2 {
+    text-align: center;
+    /* Center the heading */
+    font-size: 2.5em;
+    /* Increase font size */
+    font-weight: bold;
+    /* Make the text bold */
+    color: #ff6600;
+    /* Change text color */
+    margin: 20px 0;
+    /* Add space above and below */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    /* Add a subtle shadow for depth */
+}
+
+
+.post-interaction {
+    display: flex;
+    justify-content: flex-start;
+    /* Align items to the start */
+    align-items: center;
+    margin-top: 10px;
+    padding: 10px 0;
+    /* Add padding for better spacing */
+    border-top: 1px solid #ddd;
+    /* Light border for separation */
+}
+
+.like-button {
+    background-color: #4CAF50;
+    /* Green color for a natural look */
+    color: #fff;
+    /* White text color */
+    border: none;
+    padding: 5px 10px;
+    /* Smaller padding for a smaller button */
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    /* Smooth transition */
+    font-size: 14px;
+    /* Smaller font size */
+    display: inline-block;
+    /* Make the button fit its content */
+    margin-right: 15px;
+    /* Space between like button and share buttons */
+}
+
+.like-button:hover {
+    background-color: #45a049;
+    /* Darker green on hover */
+}
+
+.share-buttons {
+    margin-left: 15px;
+    /* Space between like button and share buttons */
+}
+
+.share-buttons a {
+    color: #007BFF;
+    /* Blue color for links */
+    font-size: 18px;
+    /* Icon size */
+    margin-right: 10px;
+    /* Space between share icons */
+    transition: color 0.3s;
+    /* Smooth transition */
+}
+
+.share-buttons a:hover {
+    color: #0056b3;
+    /* Darker blue on hover */
+}
+
+.comments-section {
+    margin-top: 20px;
+}
+
+.comment-list {
+    margin-top: 10px;
+    border-top: 1px solid #ddd;
+    /* Light separator for comments */
+    padding-top: 10px;
+    color: #333;
+    /* Darker text color for better readability */
+}
+
+.comment-list p {
+    margin: 5px 0;
+    /* Space between comments */
+}
+
+.submit-button {
+    background-color: #4CAF50;
+    /* Green color for submit button */
+    color: #fff;
+    /* White text color */
+    border: none;
+    padding: 5px 10px;
+    /* Smaller padding for a smaller button */
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    /* Smooth transition */
+    font-size: 14px;
+    /* Smaller font size */
+}
+
+.submit-button:hover {
+    background-color: #45a049;
+    /* Darker green on hover */
+}
