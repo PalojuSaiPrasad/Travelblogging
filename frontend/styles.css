@@ -1,0 +1,228 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    color: #fff;
+    /* White text color */
+    animation: backgroundAnimation 20s infinite;
+    /* Animation for background */
+    background-size: cover;
+    /* Ensure the background image covers the entire area */
+    background-position: center;
+    /* Center the background image */
+    background-repeat: no-repeat;
+    /* Prevent the image from repeating */
+}
+
+@keyframes backgroundAnimation {
+    0% {
+        background-image: url('https://www.atlasandboots.com/wp-content/uploads/2016/05/how-to-start-a-travel-blog-lead-image-2022.jpg');
+        /* First image */
+    }
+
+    33% {
+        background-image: url('https://www.atlasandboots.com/wp-content/uploads/2024/04/travel-photo-gear-guide-2024.jpg');
+        /* Second image */
+    }
+
+    66% {
+        background-image: url('https://www.atlasandboots.com/wp-content/uploads/2019/09/drone-etiquette-peace.jpg');
+        /* Third image */
+    }
+
+    100% {
+        background-image: url('https://offsprout.com/wp-content/uploads/2019/04/adult-blur-camera-368893.jpg');
+        /* Loop back to first image */
+    }
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background-color: rgba(17, 17, 17, 0.7);
+    /* Semi-transparent background for header */
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+}
+
+.logo img {
+    width: 50px;
+    /* Adjust as needed */
+    margin-right: 10px;
+}
+
+nav ul {
+    list-style: none;
+    /* Remove bullet points */
+    display: flex;
+    /* Use flexbox to align items horizontally */
+    margin: 0;
+    /* Remove default margin */
+    padding: 0;
+    /* Remove default padding */
+}
+
+nav ul li {
+    margin: 0 15px;
+    /* Space between items */
+}
+
+nav ul li a {
+    text-decoration: none;
+    /* Remove underline */
+    color: #fff;
+    /* White text color for links */
+    font-weight: bold;
+    /* Bold text */
+}
+
+nav ul li a:hover {
+    color: #ff6600;
+    /* Change color on hover */
+}
+
+nav ul li a i {
+    margin-right: 5px;
+    /* Space between icon and text */
+}
+
+.hero {
+    text-align: center;
+    padding: 100px 20px;
+    background-color: rgba(0, 0, 0, 0.5);
+    /* Semi-transparent background */
+}
+
+.cta-button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #ff6600;
+    /* Button color */
+    color: #fff;
+    text-decoration: none;
+    border-radius: 4px;
+    margin-top: 20px;
+}
+
+.cta-button:hover {
+    background-color: #e65c00;
+    /* Darker shade on hover */
+}
+
+.cta-button i {
+    margin-right: 5px;
+    /* Space between icon and text */
+}
+
+.icon-container {
+    display: flex;
+    justify-content: center;
+    /* Center the icons */
+    margin-top: 20px;
+}
+
+.icon-container a {
+    color: #ff6600;
+    /* Icon color */
+    font-size: 30px;
+    /* Icon size */
+    margin: 0 15px;
+    /* Space between icons */
+    text-decoration: none;
+    /* Remove underline */
+}
+
+.icon-container a:hover {
+    color: #e65c00;
+    /* Darker shade on hover */
+}
+
+/* Styles for Login and Registration Forms */
+.container {
+    max-width: 400px;
+    /* Set a maximum width for the form container */
+    margin: 100px auto;
+    /* Center the container horizontally and add top margin */
+    padding: 20px;
+    background-color: rgba(0, 0, 0, 0.7);
+    /* Semi-transparent background for the form */
+    border-radius: 8px;
+    /* Rounded corners */
+    box-shadow: 0 10 10px rgba(253, 248, 248, 0.5);
+    /* Shadow for depth */
+}
+
+h2 {
+    text-align: center;
+    /* Center the heading */
+}
+
+.form-group {
+    margin-bottom: 20px;
+    /* Space between form elements */
+}
+
+label {
+    display: block;
+    /* Make labels block elements */
+    margin-bottom: 5px;
+    /* Space below labels */
+}
+
+input[type="email"],
+input[type="password"],
+input[type="text"] {
+    width: 100%;
+    /* Full width inputs */
+    padding: 10px;
+    /* Padding inside inputs */
+    border: none;
+    /* Remove border */
+    border-radius: 4px;
+    /* Rounded corners */
+}
+
+button {
+    width: 100%;
+    /* Full width button */
+    padding: 10px;
+    /* Padding inside button */
+    background-color: #ff6600;
+    /* Button color */
+    border: none;
+    /* Remove border */
+    border-radius: 4px;
+    /* Rounded corners */
+    color: #fff;
+    /* White text color */
+    font-size: 16px;
+    /* Font size */
+    cursor: pointer;
+    /* Pointer cursor on hover */
+}
+
+button:hover {
+    background-color: #e65c00;
+    /* Darker shade on hover */
+}
+
+p {
+    text-align: center;
+    /* Center text */
+}
+
+a {
+    color: #ff6600;
+    /* Link color */
+    text-decoration: none;
+    /* Remove underline */
+}
+
+a:hover {
+    text-decoration: underline;
+    /* Underline on hover */
+}
