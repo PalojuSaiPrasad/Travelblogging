@@ -100,12 +100,24 @@ nav ul li a i {
 .cta-button {
     display: inline-block;
     padding: 10px 20px;
+    /* Padding for button */
     background-color: #ff6600;
     /* Button color */
     color: #fff;
+    /* White text color */
     text-decoration: none;
+    /* Remove underline */
     border-radius: 4px;
+    /* Rounded corners */
     margin-top: 20px;
+    /* Space above */
+    transition: background-color 0.3s;
+    /* Smooth transition */
+}
+
+.cta-button:hover {
+    background-color: #e65c00;
+    /* Darker shade on hover */
 }
 
 .cta-button:hover {
@@ -118,27 +130,44 @@ nav ul li a i {
     /* Space between icon and text */
 }
 
+/* Icon Container */
 .icon-container {
     display: flex;
+    /* Use flexbox for layout */
     justify-content: center;
     /* Center the icons */
     margin-top: 20px;
+    /* Space above the icon container */
 }
 
 .icon-container a {
     color: #ff6600;
     /* Icon color */
-    font-size: 30px;
+    font-size: 20px;
     /* Icon size */
     margin: 0 15px;
     /* Space between icons */
     text-decoration: none;
     /* Remove underline */
+    padding: 10px 15px;
+    /* Padding for the button */
+    background-color: rgba(255, 255, 255, 0.2);
+    /* Semi-transparent background */
+    border-radius: 5px;
+    /* Rounded corners */
+    transition: background-color 0.3s;
+    /* Smooth transition for hover effect */
 }
 
 .icon-container a:hover {
-    color: #e65c00;
-    /* Darker shade on hover */
+    background-color: rgba(255, 255, 255, 0.4);
+    /* Lighter background on hover */
+}
+
+/* Icon and Text Alignment */
+.icon-container i {
+    margin-right: 5px;
+    /* Space between icon and text */
 }
 
 /* Styles for Login and Registration Forms */
