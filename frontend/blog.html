@@ -4,81 +4,213 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blog - Travel Blogging Website</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Blog - Travel Blog</title>
+    <link rel="stylesheet" href="styles.css"> <!-- Link to your CSS file -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Font Awesome for icons -->
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            /* Light background color */
+        }
+
+        .header {
+            display: flex;
+            justify-content: flex-start;
+            /* Align items to the left */
+            padding: 10px 0;
+        }
+
+        .home-button {
+            text-decoration: none;
+            color: #a8a7a6;
+            /* Home button color */
+            font-size: 20px;
+            /* Font size */
+            font-weight: bold;
+            /* Bold text */
+            margin-right: 20px;
+            /* Space to the right */
+        }
+
+        .button-container {
+            margin-top: 20px;
+            /* Space above buttons */
+            display: grid;
+            /* Align buttons in a row */
+            gap: 10px;
+            /* Space between buttons */
+        }
+
+        .action-button {
+            background-color: #4e20b8;
+            /* Default button color */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 8px 12px;
+            /* Padding for buttons */
+            font-size: 14px;
+            /* Font size */
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+            /* Smooth transition */
+        }
+
+        .action-button:hover {
+            background-color: #0f0f0f;
+            /* Darker shade on hover */
+            transform: scale(1.05);
+            /* Slightly enlarge on hover */
+        }
+
+        .share-options {
+            display: none;
+            /* Hidden by default */
+            position: absolute;
+            background-color: white;
+            /* Background for dropdown */
+            border: 1px solid #ccc;
+            /* Border for dropdown */
+            border-radius: 5px;
+            padding: 10px;
+            z-index: 1;
+            /* Ensure it appears above other elements */
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            /* Subtle shadow for dropdown */
+        }
+
+        .share-options a {
+            display: block;
+            /* Stack links vertically */
+            text-decoration: none;
+            color: #333;
+            /* Link color */
+            padding: 5px 0;
+            /* Padding for links */
+        }
+
+        .share-options a:hover {
+            color: #2c2b2a;
+            /* Change color on hover */
+        }
+
+        .comment-section {
+            margin-top: 20px;
+            /* Space above comment section */
+            display: none;
+            /* Hidden by default */
+            border: 1px solid #ccc;
+            /* Border for comment box */
+            border-radius: 5px;
+            padding: 10px;
+            background-color: white;
+            /* Background for comment box */
+        }
+
+        .comment {
+            margin: 5px 0;
+            /* Space between comments */
+            padding: 5px;
+            border-bottom: 1px solid #eee;
+            /* Separator between comments */
+        }
+
+        .comment-form {
+            display: flex;
+            /* Align input and button in a row */
+            margin-top: 10px;
+            /* Space above form */
+        }
+
+        .comment-input {
+            flex: 1;
+            /* Take remaining space */
+            padding: 5px;
+            border: 1px solid #ccc;
+            /* Border for input */
+            border-radius: 5px;
+            /* Rounded corners */
+            margin-right: 10px;
+            /* Space between input and button */
+        }
+    </style>
 </head>
 
 <body>
-    <header>
-        <nav>
-            <ul>
-                <li><a href="index.html"><i class="fas fa-home"></i> HOME</a></li>
-            </ul>
-        </nav>
+    <header class="header">
+        <a href="index.html" class="home-button"><i class="fas fa-home"></i> HOME</a>
     </header>
 
-    <main>
-        <h2>User Posts</h2>
-        <div class="post">
-            <h3>My Trip to Bali</h3>
-            <div class="post-content">
-                <img src="https://images.pexels.com/photos/1643130/pexels-photo-1643130.jpeg" alt="Trip to Bali"
-                    class="post-image" onclick="openModal(this.src)">
-                <img src="https://i.natgeofe.com/n/28fd84d5-ebb6-45c8-a758-17d0089a0464/TT_report_ST0058057copy-Enhanced_HR.jpg?w=1280&h=853"
-                    alt="Bali Beach" class="post-image" onclick="openModal(this.src)">
-                <p>Last summer, I visited Bali and it was an unforgettable experience! The beaches were stunning and the
-                    culture was rich.</p>
-            </div>
-            <div class="post-interaction">
-                <button class="like-button" onclick="likePost(this)">Like <span class="like-count">0</span></button>
-                <div class="share-buttons">
-                    <a href="#" title="Share on Facebook"><i class="fab fa-facebook"></i></a>
-                    <a href="#" title="Share on Twitter"><i class="fab fa-twitter"></i></a>
-                    <a href="#" title="Share on Instagram"><i class="fab fa-instagram"></i></a>
-                </div>
-            </div>
-            <div class="comments-section">
-                <h4>Comments</h4>
-                <form action="#" method="POST">
-                    <div class="form-group">
-                        <label for="comment">Add a comment:</label>
-                        <textarea id="comment" name="comment" required></textarea>
-                    </div>
-                    <button type="submit">Submit</button>
-                </form>
-                <div class="comment-list">
-                    <!-- Example comment -->
-                    <p><strong>User1:</strong> Amazing post! I love Bali!</p>
-                </div>
+    <div class="container">
+        <h2>Welcome to Our Travel Blog!</h2>
+        <p>Stay tuned for exciting travel stories and tips.</p>
+
+        <div class="button-container">
+            <button class="action-button" onclick="toggleShareOptions()">Share</button>
+            <button class="action-button" onclick="toggleCommentSection()">Comment</button>
+            <button class="action-button">Like</button>
+            <div class="share-options" id="shareOptions">
+                <a href="#" class="share-button facebook"><i class="fab fa-facebook-f"></i> Facebook</a>
+                <a href="#" class="share-button twitter"><i class="fab fa-twitter"></i> Twitter</a>
+                <a href="#" class="share-button instagram"><i class="fab fa-instagram"></i> Instagram</a>
             </div>
         </div>
-        <!-- Repeat for other posts -->
-    </main>
 
-    <!-- Modal for viewing images -->
-    <div id="imageModal" class="modal" onclick="closeModal()">
-        <span class="close">&times;</span>
-        <img class="modal-content" id="modalImage">
-        <div id="caption"></div>
+        <div class="comment-section" id="commentSection">
+            <h3>Comments</h3>
+            <div id="commentsList"></div>
+            <div class="comment-form">
+                <input type="text" id="commentInput" class="comment-input" placeholder="Add a comment..." />
+                <button class="action-button" onclick="addComment()">Post</button>
+            </div>
+        </div>
     </div>
 
+    <footer>
+        <p>&copy; A Travel Blogging Website. All rights reserved.</p>
+    </footer>
+
     <script>
-        function openModal(src) {
-            document.getElementById("modalImage").src = src;
-            document.getElementById("imageModal").style.display = "block";
+        function toggleShareOptions() {
+            const shareOptions = document.getElementById('shareOptions');
+            shareOptions.style.display = shareOptions.style.display === 'block' ? 'none' : 'block';
         }
 
-        function closeModal() {
-            document.getElementById("imageModal").style.display = "none";
+        function toggleCommentSection() {
+            const commentSection = document.getElementById('commentSection');
+            commentSection.style.display = commentSection.style.display === 'block' ? 'none' : 'block';
         }
 
-        function likePost(button) {
-            let likeCount = button.querySelector('.like-count');
-            likeCount.textContent = parseInt(likeCount.textContent) + 1; // Increment like count
+        function addComment() {
+            const commentInput = document.getElementById('commentInput');
+            const commentsList = document.getElementById('commentsList');
+
+            if (commentInput.value.trim() !== "") {
+                const commentDiv = document.createElement('div');
+                commentDiv.className = 'comment';
+                commentDiv.textContent = commentInput.value;
+                commentsList.appendChild(commentDiv);
+                commentInput.value = ""; // Clear the input
+            }
+        }
+
+        // Close the dropdown if the user clicks outside of it
+        window.onclick = function (event) {
+            if (!event.target.matches('.action-button')) {
+                const dropdowns = document.getElementsByClassName("share-options");
+                for (let i = 0; i < dropdowns.length; i++) {
+                    const openDropdown = dropdowns[i];
+                    if (openDropdown.style.display === 'block') {
+                        openDropdown.style.display = 'none';
+                    }
+                }
+            }
         }
     </script>
 </body>
 
 </html>
-```
