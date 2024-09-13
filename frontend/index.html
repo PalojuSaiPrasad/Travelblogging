@@ -4,10 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Travel Blogging Website uhyg87ft564</title>
+    <title>Travel Blogging Web Application</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-
 </head>
 
 <body>
@@ -19,29 +18,48 @@
         </div>
         <nav>
             <ul>
+                <!-- <li>
+                    <form action="search_results.html" method="GET" class="nav-search-form">
+                        <input type="search" name="destination" placeholder="Search by destination" required>
+                       <button type="submit"><i class="fas fa-search"></i></button>
+                    </form>
+                </li> -->
+
+                <li>
+                    <form class="nosubmit">
+                        <input class="nosubmit" type="search" placeholder="Search by destination">
+                      </form>
+                </li>
                 <li><a href="#"><i class="fas fa-home"></i> HOME</a></li>
-                <li><a href="blog.html"><i class="fas fa-blog"></i> BLOG</a></li> <!-- Added link to blog -->
-                <li><a href="#"><i class="fas fa-info-circle"></i> ABOUT</a></li>
+                <li><a href="blog.html"><i class="fas fa-blog"></i> BLOG</a></li>
+                <!-- Removed the ABOUT link and added the search form here -->
+               
                 <li><a href="login.html"><i class="fas fa-sign-in-alt"></i> LOGIN</a></li>
                 <li><a href="register.html"><i class="fas fa-user-plus"></i> REGISTER</a></li>
             </ul>
         </nav>
     </header>
+
     <main>
         <div class="hero">
             <h2>Welcome to The Travel Blogging Website</h2>
             <p>Your adventure starts here. Explore the world with us!</p>
             <a href="register.html" class="cta-button">Join Us Now</a>
         </div>
+
+        <!-- Removed Search Feature from here -->
+        
         <div class="icon-container">
-            <a href="blog.html" title="Explore our blog"><i class="fas fa-plane"></i></a> <!-- Link to Blog -->
+            <a href="blog.html" title="Explore our blog"><i class="fas fa-plane"></i></a>
             <a href="gallery.html" title="View our photo gallery"><i class="fas fa-camera"></i></a>
-            <!-- Link to Gallery -->
             <a href="destinations.html" title="Explore travel destinations"><i class="fas fa-map-marked-alt"></i></a>
-            <!-- Link to Destinations -->
             <a href="contact.html" title="Contact us for inquiries"><i class="fas fa-comments"></i></a>
-            <!-- Link to Contact -->
         </div>
+    </main>
+
+    <footer>
+        <!-- Footer content can go here -->
+    </footer>
 </body>
 
 </html>
