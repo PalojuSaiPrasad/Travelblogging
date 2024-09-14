@@ -93,7 +93,7 @@ nav ul li a i {
 .hero {
     text-align: center;
     padding: 100px 20px;
-    background-color: rgba(0, 0, 0, 0.5);
+   /* background-color: rgba(0, 0, 0, 0.5); */
     /* Semi-transparent background */
 }
 
@@ -443,7 +443,7 @@ form.nosubmit {
     padding: 0;
   }
   
-  input.nosubmit {
+input.nosubmit {
     width: 260px;
     border: 1px solid #555;
     display: block;
