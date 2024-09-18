@@ -6,18 +6,22 @@ const authRoutes = require('./routes/auth');
 
 const app = express();
 const PORT = process.env.PORT || 5500;
+
 const MONGO_URI = 'mongodb://localhost:27017/Travel_Tales';
 
-app.use(cors()); 
+// Middleware
+app.use(cors());
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
 
+// Connect to MongoDB
 mongoose.connect(MONGO_URI)
     .then(() => console.log('MongoDB connected'))
     .catch((err) => console.error('MongoDB connection error:', err));
 
-app.use('/api/auth', authRoutes);
+// Use Routes
+app.use('/api/auth', authRoutes); // Make sure this line is present and correct
 
+// Start the server
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
 });
