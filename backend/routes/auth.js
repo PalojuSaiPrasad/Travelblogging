@@ -29,8 +29,6 @@ router.post('/register', async (req, res) => {
         res.status(500).json({ message: 'An error occurred during registration' });
     }
 });
-
-
 // Login a user
 router.post('/login', async (req, res) => {
     try {
@@ -59,7 +57,4 @@ router.post('/login', async (req, res) => {
         res.status(500).json({ message: 'An error occurred during login' });
     }
 });
-
-
-
 module.exports = router;

@@ -5,137 +5,93 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blog - Travel Tales</title>
-    <link rel="stylesheet" href="styles.css"> <!-- Link to your CSS file -->
+    <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <!-- Font Awesome for icons -->
     <style>
         body {
             margin: 0;
             padding: 20px;
             font-family: Arial, sans-serif;
             background-color: #f4f4f4;
-            /* Light background color */
+            overflow-x: hidden;
         }
 
         .header {
             display: flex;
             justify-content: flex-start;
-            /* Align items to the left */
             padding: 10px 0;
         }
 
         .home-button {
             text-decoration: none;
             color: #a8a7a6;
-            /* Home button color */
             font-size: 20px;
-            /* Font size */
             font-weight: bold;
-            /* Bold text */
             margin-right: 20px;
-            /* Space to the right */
         }
 
-        .button-container {
-            margin-top: 20px;
-            /* Space above buttons */
-            display: grid;
-            /* Align buttons in a row */
-            gap: 10px;
-            /* Space between buttons */
-        }
-
-        .action-button {
-            background-color: #4e20b8;
-            /* Default button color */
-            color: white;
-            border: none;
-            border-radius: 5px;
-            padding: 8px 12px;
-            /* Padding for buttons */
-            font-size: 14px;
-            /* Font size */
-            cursor: pointer;
-            transition: background-color 0.3s, transform 0.2s;
-            /* Smooth transition */
-        }
-
-        .action-button:hover {
-            background-color: #0f0f0f;
-            /* Darker shade on hover */
-            transform: scale(1.05);
-            /* Slightly enlarge on hover */
-        }
-
-        .share-options {
-            display: none;
-            /* Hidden by default */
-            position: absolute;
-            background-color: white;
-            /* Background for dropdown */
-            border: 1px solid #ccc;
-            /* Border for dropdown */
-            border-radius: 5px;
-            padding: 10px;
-            z-index: 1;
-            /* Ensure it appears above other elements */
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: rgb(52, 50, 50);
+            border-radius: 8px;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            /* Subtle shadow for dropdown */
         }
 
-        .share-options a {
-            display: block;
-            /* Stack links vertically */
-            text-decoration: none;
-            color: #333;
-            /* Link color */
-            padding: 5px 0;
-            /* Padding for links */
+        .post {
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 20px;
+            background-color: rgb(245, 241, 241);
+            color: black;
         }
 
-        .share-options a:hover {
-            color: #2c2b2a;
-            /* Change color on hover */
+        .post img {
+            max-width: 100%;
+            border-radius: 8px;
         }
 
         .comment-section {
-            margin-top: 20px;
-            /* Space above comment section */
-            display: none;
-            /* Hidden by default */
-            border: 1px solid #ccc;
-            /* Border for comment box */
-            border-radius: 5px;
-            padding: 10px;
-            background-color: white;
-            /* Background for comment box */
+            margin-top: 10px;
+            border-top: 1px solid #ccc;
+            padding-top: 10px;
         }
 
         .comment {
             margin: 5px 0;
-            /* Space between comments */
             padding: 5px;
             border-bottom: 1px solid #eee;
-            /* Separator between comments */
         }
 
         .comment-form {
             display: flex;
-            /* Align input and button in a row */
+            flex-direction: column;
             margin-top: 10px;
-            /* Space above form */
         }
 
         .comment-input {
             flex: 1;
-            /* Take remaining space */
-            padding: 5px;
+            margin-bottom: 5px;
+            padding: 10px;
             border: 1px solid #ccc;
-            /* Border for input */
             border-radius: 5px;
-            /* Rounded corners */
-            margin-right: 10px;
-            /* Space between input and button */
+            resize: none;
+            overflow: hidden;
+            min-height: 40px;
+            max-height: 80px;
+        }
+
+        .send-button {
+            padding: 5px 10px;
+            background-color: #ff6600;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            align-self: flex-start;
+            /* Align button to the left */
         }
     </style>
 </head>
@@ -149,25 +105,48 @@
         <h2>Welcome to Our Travel Blog!</h2>
         <p>Stay tuned for exciting travel stories and tips.</p>
 
-        <div class="button-container">
-            <button class="action-button" onclick="toggleShareOptions()">Share</button>
-            <button class="action-button" onclick="toggleCommentSection()">Comment</button>
-            <button class="action-button">Like</button>
-            <div class="share-options" id="shareOptions">
-                <a href="#" class="share-button facebook"><i class="fab fa-facebook-f"></i> Facebook</a>
-                <a href="#" class="share-button twitter"><i class="fab fa-twitter"></i> Twitter</a>
-                <a href="#" class="share-button instagram"><i class="fab fa-instagram"></i> Instagram</a>
+        <div class="post">
+            <h3>EXPLORING THE MAJESTIC MOUNTAINS</h3>
+            <p>Nestled high above the hustle and bustle of everyday life, the mountains offer a sanctuary for adventure
+                seekers and nature lovers alike. With their towering peaks piercing the sky and valleys cloaked in a
+                blanket of lush greenery, these majestic giants beckon you to explore their breathtaking landscapes.
+            </p>
+            <img src="https://plus.unsplash.com/premium_photo-1672115680958-54438df0ab82?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8bW91bnRhaW5zfGVufDB8fDB8fHww"
+                alt="Mountains">
+            <img src="https://images.unsplash.com/photo-1480497490787-505ec076689f?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxleHBsb3JlLWZlZWR8MXx8fGVufDB8fHx8fA%3D%3D"
+                alt="Beach">
+
+            <div class="comment-section" id="commentSection1">
+                <h4>Comments</h4>
+                <div id="commentsList1"></div>
+                <div class="comment-form">
+                    <textarea id="commentInput1" class="comment-input" placeholder="Add a comment..." rows="1"
+                        oninput="autoResize(this)"></textarea>
+                    <button class="send-button" onclick="addComment(1)">Post</button>
+                </div>
             </div>
         </div>
 
-        <div class="comment-section" id="commentSection">
-            <h3>Comments</h3>
-            <div id="commentsList"></div>
-            <div class="comment-form">
-                <input type="text" id="commentInput" class="comment-input" placeholder="Add a comment..." />
-                <button class="action-button" onclick="addComment()">Post</button>
+        <div class="post">
+            <h3>Beach Days</h3>
+            <p>A day at the beach is always a good idea! Here are some highlights from my visit.</p>
+            <img src="https://plus.unsplash.com/premium_photo-1669748157617-a3a83cc8ea23?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8c3Vuc2V0JTIwYmVhY2h8ZW58MHx8MHx8fDA%3D"
+                alt="Beach">
+            <img src="https://images.pexels.com/photos/994605/pexels-photo-994605.jpeg?cs=srgb&dl=pexels-fabianwiktor-994605.jpg&fm=jpg"
+                alt="Beach">
+
+
+            <div class="comment-section" id="commentSection2">
+                <h4>Comments</h4>
+                <div id="commentsList2"></div>
+                <div class="comment-form">
+                    <textarea id="commentInput2" class="comment-input" placeholder="Add a comment..." rows="1"
+                        oninput="autoResize(this)"></textarea>
+                    <button class="send-button" onclick="addComment(2)">Post</button>
+                </div>
             </div>
         </div>
+
     </div>
 
     <footer>
@@ -175,19 +154,9 @@
     </footer>
 
     <script>
-        function toggleShareOptions() {
-            const shareOptions = document.getElementById('shareOptions');
-            shareOptions.style.display = shareOptions.style.display === 'block' ? 'none' : 'block';
-        }
-
-        function toggleCommentSection() {
-            const commentSection = document.getElementById('commentSection');
-            commentSection.style.display = commentSection.style.display === 'block' ? 'none' : 'block';
-        }
-
-        function addComment() {
-            const commentInput = document.getElementById('commentInput');
-            const commentsList = document.getElementById('commentsList');
+        function addComment(postId) {
+            const commentInput = document.getElementById(`commentInput${postId}`);
+            const commentsList = document.getElementById(`commentsList${postId}`);
 
             if (commentInput.value.trim() !== "") {
                 const commentDiv = document.createElement('div');
@@ -195,20 +164,13 @@
                 commentDiv.textContent = commentInput.value;
                 commentsList.appendChild(commentDiv);
                 commentInput.value = ""; // Clear the input
+                commentInput.style.height = 'auto'; // Reset height after adding comment
             }
         }
 
-        // Close the dropdown if the user clicks outside of it
-        window.onclick = function (event) {
-            if (!event.target.matches('.action-button')) {
-                const dropdowns = document.getElementsByClassName("share-options");
-                for (let i = 0; i < dropdowns.length; i++) {
-                    const openDropdown = dropdowns[i];
-                    if (openDropdown.style.display === 'block') {
-                        openDropdown.style.display = 'none';
-                    }
-                }
-            }
+        function autoResize(textarea) {
+            textarea.style.height = 'auto'; // Reset height to auto
+            textarea.style.height = textarea.scrollHeight + 'px'; // Set height to scrollHeight
         }
     </script>
 </body>
