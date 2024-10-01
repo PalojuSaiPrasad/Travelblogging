@@ -1,16 +1,22 @@
 const express = require('express');
-const User = require('../models/User'); // Assuming you have a User model
+const User = require('../models/User'); // User model
 const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
+const crypto = require('crypto'); // For generating OTPs
+const { sendMail } = require('../utils/sendMail'); // Utility function to send emails
 
 const router = express.Router();
 
-// Register a new user
+// Generate a random OTP
+const generateOTP = () => {
+    return crypto.randomInt(100000, 999999).toString(); // 6-digit OTP
+};
+
+// Register a new user and send OTP
 router.post('/register', async (req, res) => {
     try {
         const { username, email, password } = req.body;
 
-        // Check if the user already exists
+        // Check if user already exists
         const existingUser = await User.findOne({ email });
         if (existingUser) {
             return res.status(400).json({ message: 'User already exists' });
@@ -19,42 +25,94 @@ router.post('/register', async (req, res) => {
         // Hash the password
         const hashedPassword = await bcrypt.hash(password, 10);
 
-        // Create a new user
-        const newUser = new User({ username, email, password: hashedPassword });
+        // Generate OTP
+        const otp = generateOTP();
+
+        // Send OTP to the email using your sendMail function
+        await sendMail(
+            email,
+            'OTP Verification Code',
+            `Your OTP code is ${otp}. It will expire in 10 minutes.`
+        );
+
+        // Temporarily save the user with unverified status
+        const newUser = new User({
+            username,
+            email,
+            password: hashedPassword,
+            isVerified: false,
+            otp, // Save OTP for verification
+            otpExpiresAt: new Date(Date.now() + 10 * 60 * 1000), // OTP valid for 10 minutes
+        });
         await newUser.save();
 
-        res.status(201).json({ message: 'User registered successfully', userId: newUser._id });
-    } catch (err) {
-        console.error('Error during registration:', err);
+        // Respond with success and instructions to verify OTP
+        res.status(201).json({ message: 'User registered successfully. Please check your email for the OTP.' });
+    } catch (error) {
+        console.error('Error during registration:', error);
         res.status(500).json({ message: 'An error occurred during registration' });
     }
 });
-// Login a user
+
+module.exports = router;
+
+// Verify OTP
+router.post('/verify-otp', async (req, res) => {
+    try {
+        const { email, otp } = req.body;
+
+        // Find user by email
+        const user = await User.findOne({ email });
+        if (!user) {
+            return res.status(400).json({ message: 'User not found' });
+        }
+
+        // Check if OTP is valid and not expired
+        if (user.otp === otp && user.otpExpiresAt > Date.now()) {
+            // Update user to verified
+            user.isVerified = true;
+            user.otp = undefined; // Clear OTP
+            user.otpExpiresAt = undefined; // Clear OTP expiration time
+            await user.save();
+
+            res.status(200).json({ message: 'OTP verified successfully. Registration complete!' });
+        } else {
+            res.status(400).json({ message: 'Invalid or expired OTP' });
+        }
+    } catch (error) {
+        console.error('Error during OTP verification:', error);
+        res.status(500).json({ message: 'An error occurred during OTP verification' });
+    }
+});
+
+// Login user
 router.post('/login', async (req, res) => {
     try {
         const { email, password } = req.body;
 
-        // Check if the user exists
+        // Find user by email
         const user = await User.findOne({ email });
         if (!user) {
-            console.log('User not found');
-            return res.status(400).json({ message: 'Invalid email or password' });
+            return res.status(400).json({ message: 'User not found' });
         }
 
-        // Compare the password with the hashed password
+        // Check if password is correct
         const isMatch = await bcrypt.compare(password, user.password);
         if (!isMatch) {
-            console.log('Password mismatch');
-            return res.status(400).json({ message: 'Invalid email or password' });
+            return res.status(400).json({ message: 'Invalid credentials' });
         }
 
-        // Generate a JWT token
-        const token = jwt.sign({ id: user._id }, '995f12954bd54d4210241cb13b5747525917bf976b1817e070fac23f97671f937df4d09756a5639716559591d60c8c34597681d434c96792e5b82cafd4c1a1c2', { expiresIn: '1h' });
+        // Check if user is verified
+        if (!user.isVerified) {
+            return res.status(400).json({ message: 'Please verify your email before logging in' });
+        }
+
+        // Generate a token (you can use JWT or any method you prefer)
+        const token = 'your_generated_token'; // Generate a JWT or another token here
 
         res.status(200).json({ message: 'Login successful', token });
-    } catch (err) {
-        console.error('Error during login:', err);
+    } catch (error) {
+        console.error('Error during login:', error);
         res.status(500).json({ message: 'An error occurred during login' });
     }
 });
-module.exports = router;

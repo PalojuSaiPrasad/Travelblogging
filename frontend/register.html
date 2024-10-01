@@ -6,131 +6,64 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register - Travel Tales</title>
     <link rel="stylesheet" href="styles.css"> <!-- Link to your CSS file -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <style>
-        .password-container {
-            position: relative;
-        }
-
-        .password-field {
-            position: relative;
-        }
-
-        #password {
-            padding-right: 40px;
-            /* Space for the toggle button */
-            width: 100%;
-            box-sizing: border-box;
-        }
-
-        .toggle-password {
-            position: absolute;
-            right: 0;
-            /* Changed from 10px to 0 to align with the right edge of the box */
-            top: 50%;
-            transform: translateY(-50%);
-            cursor: pointer;
-        }
-
-        #eye-icon {
-            font-size: 1.2rem;
-            color: #007bff;
-        }
-
-        #eye-icon:hover {
-            text-decoration: underline;
-        }
-    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+    <!-- Font Awesome for icons -->
 </head>
 
 <body>
     <header>
         <nav>
             <ul>
-                <li><a href="index.html"><i class="fas fa-home"></i> HOME</a></li>
+                <li><a href="index.html"><i class="fas fa-home"></i> HOME</a></li> <!-- Home button with icon -->
             </ul>
         </nav>
     </header>
 
     <div class="container">
         <h2>Register</h2>
-        <form id="register-form"> <!-- Add an ID to the form -->
+        <form id="registration-form">
             <div class="form-group">
-                <label for="username">Username:</label>
-                <input type="text" id="username" placeholder="Username" required
-                    style="width: 100%; box-sizing: border-box;">
+                <label for="username">Name:</label>
+                <input type="text" id="username" placeholder="Name" required>
             </div>
             <div class="form-group">
                 <label for="email">Email:</label>
-                <input type="email" id="email" placeholder="Email" required
-                    style="width: 100%; box-sizing: border-box;">
+                <input type="email" id="email" placeholder="Email" required>
             </div>
-            <div class="form-group password-container">
+            <div class="form-group">
                 <label for="password">Password:</label>
-                <div class="password-field">
-                    <input type="password" id="password" placeholder="Password" required
-                        style="width: 100%; box-sizing: border-box;">
-                    <span class="toggle-password" id="toggle-password">
-                        <i class="fas fa-eye" id="eye-icon"></i>
-                    </span>
-                </div>
+                <input type="password" id="password" placeholder="Password" required>
             </div>
-            <button type="submit">Register</button>
+            <button type="button" id="register-btn">Register</button>
             <p>Already have an account? <a href="login.html">Login here</a></p>
         </form>
     </div>
 
     <script>
-        document.getElementById('register-form').addEventListener('submit', async (e) => {
-            e.preventDefault();
-
+        // Register button click event
+        document.getElementById('register-btn').addEventListener('click', async () => {
             const username = document.getElementById('username').value;
             const email = document.getElementById('email').value;
             const password = document.getElementById('password').value;
 
-            try {
-                const response = await fetch('http://localhost:5500/api/auth/register', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({ username, email, password }),
-                });
+            const response = await fetch('http://localhost:5500/api/auth/register', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ username, email, password }),
+            });
 
-                const result = await response.json();
-
-                if (response.ok) {
-                    alert('Registration successful');
-                    window.location.href = 'login.html';
-                } else {
-                    alert(result.message || 'An error occurred');
-                }
-            } catch (error) {
-                alert('An error occurred while registering');
-                console.error('Error:', error);
-            }
-        });
-
-        // Toggle password visibility
-        const togglePassword = document.getElementById('toggle-password');
-        const passwordField = document.getElementById('password');
-        const eyeIcon = document.getElementById('eye-icon');
-
-        togglePassword.addEventListener('click', () => {
-            const type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
-            passwordField.setAttribute('type', type);
-
-            // Toggle the eye icon
-            if (type === 'password') {
-                eyeIcon.classList.remove('fa-eye-slash');
-                eyeIcon.classList.add('fa-eye');
+            const result = await response.json();
+            if (response.ok) {
+                alert('OTP sent to your email.');
+                // Redirect to the OTP verification page with email as a query parameter
+                window.location.href = `verify-otp.html?email=${encodeURIComponent(email)}`;
             } else {
-                eyeIcon.classList.remove('fa-eye');
-                eyeIcon.classList.add('fa-eye-slash');
+                alert(result.message || 'Registration failed');
             }
         });
     </script>
-
 </body>
 
 </html>

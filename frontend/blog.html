@@ -5,8 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blog - Travel Tales</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles.css"> <!-- Link to your CSS file -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Font Awesome for icons -->
     <style>
         body {
             margin: 0;
@@ -18,7 +19,8 @@
 
         .header {
             display: flex;
-            justify-content: flex-start;
+            justify-content: space-between;
+            align-items: center;
             padding: 10px 0;
         }
 
@@ -28,6 +30,30 @@
             font-size: 20px;
             font-weight: bold;
             margin-right: 20px;
+            background: none;
+        }
+
+        .search-form {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+        }
+
+        .search-input {
+            padding: 8px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            width: 200px;
+        }
+
+        .search-button {
+            padding: 8px 10px;
+            margin-left: 5px;
+            background-color: #ff6600;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
         }
 
         .container {
@@ -91,14 +117,26 @@
             border-radius: 5px;
             cursor: pointer;
             align-self: flex-start;
-            /* Align button to the left */
+        }
+
+        footer {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 14px;
+            color: #a8a7a6;
         }
     </style>
 </head>
 
 <body>
     <header class="header">
-        <a href="index.html" class="home-button"><i class="fas fa-home"></i> HOME</a>
+        <a href="index.html" class="home-button"><i class="fas fa-home"></i> HOME</a> <!-- Home button with icon -->
+
+        <!-- Search Form -->
+        <form class="search-form" action="search_results.html" method="GET">
+            <input type="search" class="search-input" name="destination" placeholder="Search by destination" required>
+            <button type="submit" class="search-button"><i class="fas fa-search"></i> Search</button>
+        </form>
     </header>
 
     <div class="container">
@@ -109,8 +147,7 @@
             <h3>EXPLORING THE MAJESTIC MOUNTAINS</h3>
             <p>Nestled high above the hustle and bustle of everyday life, the mountains offer a sanctuary for adventure
                 seekers and nature lovers alike. With their towering peaks piercing the sky and valleys cloaked in a
-                blanket of lush greenery, these majestic giants beckon you to explore their breathtaking landscapes.
-            </p>
+                blanket of lush greenery, these majestic giants beckon you to explore their breathtaking landscapes.</p>
             <img src="https://plus.unsplash.com/premium_photo-1672115680958-54438df0ab82?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8bW91bnRhaW5zfGVufDB8fDB8fHww"
                 alt="Mountains">
             <img src="https://images.unsplash.com/photo-1480497490787-505ec076689f?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxleHBsb3JlLWZlZWR8MXx8fGVufDB8fHx8fA%3D%3D"
@@ -135,7 +172,6 @@
             <img src="https://images.pexels.com/photos/994605/pexels-photo-994605.jpeg?cs=srgb&dl=pexels-fabianwiktor-994605.jpg&fm=jpg"
                 alt="Beach">
 
-
             <div class="comment-section" id="commentSection2">
                 <h4>Comments</h4>
                 <div id="commentsList2"></div>
@@ -146,7 +182,6 @@
                 </div>
             </div>
         </div>
-
     </div>
 
     <footer>

@@ -7,6 +7,7 @@
     <title>Login - Travel Tales</title>
     <link rel="stylesheet" href="styles.css"> <!-- Link to your CSS file -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+    <!-- Font Awesome for icons -->
 
     <style>
         .password-container {
@@ -44,6 +45,14 @@
 </head>
 
 <body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="index.html"><i class="fas fa-home"></i> HOME</a></li> <!-- Home button with icon -->
+            </ul>
+        </nav>
+    </header>
+
     <div class="container">
         <h2>Login</h2>
         <form id="login-form">
@@ -91,8 +100,8 @@
                 if (response.ok) {
                     // Login successful
                     alert('Login successful');
-                    localStorage.setItem('token', result.token);
-                    window.location.href = 'blog.html';
+                    localStorage.setItem('token', result.token); // Store token if using JWT
+                    window.location.href = 'blog.html'; // Redirect to blog page
                 } else {
                     alert(result.message || 'An error occurred');
                 }
@@ -112,13 +121,8 @@
             passwordField.setAttribute('type', type);
 
             // Toggle the eye icon
-            if (type === 'password') {
-                eyeIcon.classList.remove('fa-eye-slash');
-                eyeIcon.classList.add('fa-eye');
-            } else {
-                eyeIcon.classList.remove('fa-eye');
-                eyeIcon.classList.add('fa-eye-slash');
-            }
+            eyeIcon.classList.toggle('fa-eye', type === 'password');
+            eyeIcon.classList.toggle('fa-eye-slash', type === 'text');
         });
     </script>
 </body>
