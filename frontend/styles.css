@@ -2,36 +2,27 @@ body {
     margin: 0;
     font-family: Arial, sans-serif;
     color: #fff;
-    /* White text color */
     animation: backgroundAnimation 20s infinite;
-    /* Animation for background */
     background-size: cover;
-    /* Ensure the background image covers the entire area */
     background-position: center;
-    /* Center the background image */
     background-repeat: no-repeat;
-    /* Prevent the image from repeating */
 }
 
 @keyframes backgroundAnimation {
     0% {
         background-image: url('https://www.atlasandboots.com/wp-content/uploads/2016/05/how-to-start-a-travel-blog-lead-image-2022.jpg');
-        /* First image */
     }
 
     33% {
         background-image: url('https://www.atlasandboots.com/wp-content/uploads/2024/04/travel-photo-gear-guide-2024.jpg');
-        /* Second image */
     }
 
     66% {
         background-image: url('https://www.atlasandboots.com/wp-content/uploads/2019/09/drone-etiquette-peace.jpg');
-        /* Third image */
     }
 
     100% {
         background-image: url('https://offsprout.com/wp-content/uploads/2019/04/adult-blur-camera-368893.jpg');
-        /* Loop back to first image */
     }
 }
 
@@ -41,278 +32,200 @@ header {
     align-items: center;
     padding: 20px;
     background-color: rgba(17, 17, 17, 0.7);
-    /* Semi-transparent background for header */
 }
 
 .logo {
     display: flex;
-    align-items: center;
+    align-items: flex-end;
+    justify-content: flex-end;
+    /* Centers the logo and title */
+    gap: 10px;
+    /* Adds space between the logo and title */
 }
 
 .logo img {
-    width: 50px;
-    /* Adjust as needed */
+    width: 100px;
+    /* Adjust the width as needed */
+    height: auto;
+    /* Automatically adjusts height based on width */
     margin-right: 10px;
 }
 
 nav ul {
     list-style: none;
-    /* Remove bullet points */
     display: flex;
-    /* Use flexbox to align items horizontally */
     margin: 0;
-    /* Remove default margin */
     padding: 0;
-    /* Remove default padding */
 }
 
 nav ul li {
     margin: 0 15px;
-    /* Space between items */
 }
 
 nav ul li a {
     text-decoration: none;
-    /* Remove underline */
     color: #fff;
-    /* White text color for links */
     font-weight: bold;
-    /* Bold text */
 }
 
 nav ul li a:hover {
     color: #ff6600;
-    /* Change color on hover */
 }
 
 nav ul li a i {
     margin-right: 5px;
-    /* Space between icon and text */
 }
 
 .hero {
     text-align: center;
     padding: 100px 20px;
-    /* background-color: rgba(0, 0, 0, 0.5); */
-    /* Semi-transparent background */
 }
 
 .cta-button {
     display: inline-block;
     padding: 10px 20px;
-    /* Padding for button */
     background-color: #ff6600;
-    /* Button color */
     color: #fff;
-    /* White text color */
     text-decoration: none;
-    /* Remove underline */
     border-radius: 4px;
-    /* Rounded corners */
     margin-top: 20px;
-    /* Space above */
     transition: background-color 0.3s;
-    /* Smooth transition */
 }
 
 .cta-button:hover {
     background-color: #e65c00;
-    /* Darker shade on hover */
-}
-
-.cta-button:hover {
-    background-color: #e65c00;
-    /* Darker shade on hover */
 }
 
 .cta-button i {
     margin-right: 5px;
-    /* Space between icon and text */
 }
 
-/* Icon Container */
 .icon-container {
     display: flex;
-    /* Use flexbox for layout */
     justify-content: center;
-    /* Center the icons */
     margin-top: 20px;
-    /* Space above the icon container */
 }
 
 .icon-container a {
     color: #ff6600;
-    /* Icon color */
     font-size: 20px;
-    /* Icon size */
     margin: 0 15px;
-    /* Space between icons */
     text-decoration: none;
-    /* Remove underline */
     padding: 10px 15px;
-    /* Padding for the button */
     background-color: rgba(255, 255, 255, 0.2);
-    /* Semi-transparent background */
     border-radius: 5px;
-    /* Rounded corners */
     transition: background-color 0.3s;
-    /* Smooth transition for hover effect */
 }
 
 .icon-container a:hover {
     background-color: rgba(255, 255, 255, 0.4);
-    /* Lighter background on hover */
 }
 
-/* Icon and Text Alignment */
 .icon-container i {
     margin-right: 5px;
-    /* Space between icon and text */
 }
 
-/* Styles for Login and Registration Forms */
 .container {
     max-width: 400px;
-    /* Set a maximum width for the form container */
     margin: 100px auto;
-    /* Center the container horizontally and add top margin */
     padding: 20px;
     background-color: rgba(0, 0, 0, 0.7);
-    /* Semi-transparent background for the form */
     border-radius: 8px;
-    /* Rounded corners */
     box-shadow: 0 10 10px rgba(253, 248, 248, 0.5);
-    /* Shadow for depth */
 }
 
 h2 {
     text-align: center;
-    /* Center the heading */
+    font-size: 2.5em;
+    font-weight: bold;
+    color: #ff6600;
+    margin: 20px 0;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 .form-group {
     margin-bottom: 20px;
-    /* Space between form elements */
 }
 
 label {
     display: block;
-    /* Make labels block elements */
     margin-bottom: 5px;
-    /* Space below labels */
 }
 
 input[type="email"],
 input[type="password"],
 input[type="text"] {
     width: 100%;
-    /* Full width inputs */
     padding: 10px;
-    /* Padding inside inputs */
     border: none;
-    /* Remove border */
     border-radius: 4px;
-    /* Rounded corners */
 }
 
 button {
     width: 100%;
-    /* Full width button */
     padding: 10px;
-    /* Padding inside button */
     background-color: #ff6600;
-    /* Button color */
     border: none;
-    /* Remove border */
     border-radius: 4px;
-    /* Rounded corners */
     color: #fff;
-    /* White text color */
     font-size: 16px;
-    /* Font size */
     cursor: pointer;
-    /* Pointer cursor on hover */
 }
 
 button:hover {
     background-color: #e65c00;
-    /* Darker shade on hover */
 }
 
 p {
     text-align: center;
-    /* Center text */
 }
 
 a {
     color: #ff6600;
-    /* Link color */
     text-decoration: none;
-    /* Remove underline */
 }
 
 a:hover {
     text-decoration: underline;
-    /* Underline on hover */
 }
 
 .post {
     border: 1px solid #ccc;
-    /* Border around each post */
     border-radius: 18px;
-    /* Rounded corners */
     padding: 25px;
-    /* Padding inside the post */
     margin-bottom: 30px;
-    /* Space between posts */
     background-color: rgba(44, 42, 42, 0.7);
-    /* Semi-transparent background */
 }
 
 .post-content {
     display: flex;
-    /* Use flexbox for layout */
     align-items: center;
-    /* Center items vertically */
 }
 
 .post-image {
     width: 100px;
-    /* Set a fixed width for the image */
     height: min-content;
-    /* Maintain aspect ratio */
     border-radius: 4px;
-    /* Optional: rounded corners */
     margin-right: 15px;
-    /* Space between image and text */
 }
 
 .modal {
     display: none;
-    /* Hidden by default */
     position: fixed;
-    /* Stay in place */
     z-index: 1000;
-    /* Sit on top */
     left: 0;
     top: 0;
     width: 100%;
-    /* Full width */
     height: 100%;
-    /* Full height */
     overflow: auto;
-    /* Enable scroll if needed */
     background-color: rgba(0, 0, 0, 0.8);
-    /* Black background with opacity */
 }
 
 .modal-content {
     margin: auto;
     display: block;
     width: 80%;
-    /* Width of the image */
     max-width: 700px;
-    /* Maximum width */
 }
 
 .close {
@@ -325,78 +238,45 @@ a:hover {
     cursor: pointer;
 }
 
-h2 {
-    text-align: center;
-    /* Center the heading */
-    font-size: 2.5em;
-    /* Increase font size */
-    font-weight: bold;
-    /* Make the text bold */
-    color: #ff6600;
-    /* Change text color */
-    margin: 20px 0;
-    /* Add space above and below */
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-    /* Add a subtle shadow for depth */
-}
-
-
 .post-interaction {
     display: flex;
     justify-content: flex-start;
-    /* Align items to the start */
     align-items: center;
     margin-top: 10px;
     padding: 10px 0;
-    /* Add padding for better spacing */
     border-top: 1px solid #ddd;
-    /* Light border for separation */
 }
 
 .like-button {
     background-color: #4CAF50;
-    /* Green color for a natural look */
     color: #fff;
-    /* White text color */
     border: none;
     padding: 5px 10px;
-    /* Smaller padding for a smaller button */
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s;
-    /* Smooth transition */
     font-size: 14px;
-    /* Smaller font size */
     display: inline-block;
-    /* Make the button fit its content */
     margin-right: 15px;
-    /* Space between like button and share buttons */
 }
 
 .like-button:hover {
     background-color: #45a049;
-    /* Darker green on hover */
 }
 
 .share-buttons {
     margin-left: 15px;
-    /* Space between like button and share buttons */
 }
 
 .share-buttons a {
     color: #007BFF;
-    /* Blue color for links */
     font-size: 18px;
-    /* Icon size */
     margin-right: 10px;
-    /* Space between share icons */
     transition: color 0.3s;
-    /* Smooth transition */
 }
 
 .share-buttons a:hover {
     color: #0056b3;
-    /* Darker blue on hover */
 }
 
 .comments-section {
@@ -406,36 +286,27 @@ h2 {
 .comment-list {
     margin-top: 10px;
     border-top: 1px solid #ddd;
-    /* Light separator for comments */
     padding-top: 10px;
     color: #333;
-    /* Darker text color for better readability */
 }
 
 .comment-list p {
     margin: 5px 0;
-    /* Space between comments */
 }
 
 .submit-button {
     background-color: #4CAF50;
-    /* Green color for submit button */
     color: #fff;
-    /* White text color */
     border: none;
     padding: 5px 10px;
-    /* Smaller padding for a smaller button */
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s;
-    /* Smooth transition */
     font-size: 14px;
-    /* Smaller font size */
 }
 
 .submit-button:hover {
     background-color: #45a049;
-    /* Darker green on hover */
 }
 
 form.nosubmit {

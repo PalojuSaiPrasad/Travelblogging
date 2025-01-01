@@ -13,15 +13,23 @@
     <header>
         <div class="logo">
             <img src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1d/dd/24/8d/caption.jpg?w=1200&h=1200&s=1"
-                alt="The World Travel Guy" style="width: 100px; height: 70px;">
+                alt="Travel Tales" style="width: 100px; height: 70px;">
             <h1>Travel Tales</h1>
         </div>
         <nav>
-            <ul>
-                <li><a href="#"><i class="fas fa-home"></i> HOME</a></li>
-                <li><a href="blog.html"><i class="fas fa-blog"></i> BLOG</a></li>
-                <li><a href="login.html"><i class="fas fa-sign-in-alt"></i> LOGIN</a></li>
-                <li><a href="register.html"><i class="fas fa-user-plus"></i> REGISTER</a></li>
+            <ul id="nav-list">
+                <li><a href="create-blog.html" class="create-blog"><i class="fas fa-pencil-alt"></i> Create a Travel
+                        Blog</a></li>
+                <li><a href="blog.html"><i class="fas fa-blog"></i> BLOGS</a></li>
+                <li><a href="login.html" id="login-link"><i class="fas fa-sign-in-alt"></i> LOGIN</a></li>
+                <li><a href="register.html" id="register-link"><i class="fas fa-user-plus"></i> REGISTER</a></li>
+
+                <!-- Logged-in User Section -->
+                <li id="user-info" style="display: none;">
+                    <img src="https://via.placeholder.com/30" alt="Profile" class="profile-img" id="profile-img">
+                    <span id="username"></span>
+                    <button id="logout-btn" class="logout-btn">Logout</button>
+                </li>
             </ul>
         </nav>
     </header>
@@ -33,6 +41,35 @@
             <a href="register.html" class="cta-button">Join Us Now</a>
         </div>
     </main>
+
+    <script>
+        // Function to check login status and update the navbar
+        function checkLoginStatus() {
+            const user = JSON.parse(localStorage.getItem('user')); // Retrieve user data from localStorage
+            if (user) {
+                // If logged in
+                document.getElementById('login-link').style.display = 'none';
+                document.getElementById('register-link').style.display = 'none';
+                document.getElementById('user-info').style.display = 'flex';
+                document.getElementById('username').textContent = user.username; // Display username
+                document.getElementById('profile-img').src = user.profileImage || "https://via.placeholder.com/30";
+            } else {
+                // If not logged in
+                document.getElementById('login-link').style.display = 'inline-block';
+                document.getElementById('register-link').style.display = 'inline-block';
+                document.getElementById('user-info').style.display = 'none';
+            }
+        }
+
+        // Logout functionality
+        document.getElementById('logout-btn')?.addEventListener('click', () => {
+            localStorage.removeItem('user'); // Remove user data
+            window.location.reload(); // Reload page to reflect changes
+        });
+
+        // Call function on page load
+        checkLoginStatus();
+    </script>
 </body>
 
 </html>
