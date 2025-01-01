@@ -4,209 +4,69 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blog - Travel Tales</title>
-    <link rel="stylesheet" href="styles.css"> <!-- Link to your CSS file -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <!-- Font Awesome for icons -->
-    <style>
-        body {
-            margin: 0;
-            padding: 20px;
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            overflow-x: hidden;
-        }
-
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px 0;
-        }
-
-        .home-button {
-            text-decoration: none;
-            color: #a8a7a6;
-            font-size: 20px;
-            font-weight: bold;
-            margin-right: 20px;
-            background: none;
-        }
-
-        .search-form {
-            display: flex;
-            justify-content: flex-end;
-            align-items: center;
-        }
-
-        .search-input {
-            padding: 8px;
-            border-radius: 5px;
-            border: 1px solid #ccc;
-            width: 200px;
-        }
-
-        .search-button {
-            padding: 8px 10px;
-            margin-left: 5px;
-            background-color: #ff6600;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: rgb(52, 50, 50);
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        }
-
-        .post {
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            padding: 15px;
-            margin-bottom: 20px;
-            background-color: rgb(245, 241, 241);
-            color: black;
-        }
-
-        .post img {
-            max-width: 100%;
-            border-radius: 8px;
-        }
-
-        .comment-section {
-            margin-top: 10px;
-            border-top: 1px solid #ccc;
-            padding-top: 10px;
-        }
-
-        .comment {
-            margin: 5px 0;
-            padding: 5px;
-            border-bottom: 1px solid #eee;
-        }
-
-        .comment-form {
-            display: flex;
-            flex-direction: column;
-            margin-top: 10px;
-        }
-
-        .comment-input {
-            flex: 1;
-            margin-bottom: 5px;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            resize: none;
-            overflow: hidden;
-            min-height: 40px;
-            max-height: 80px;
-        }
-
-        .send-button {
-            padding: 5px 10px;
-            background-color: #ff6600;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            align-self: flex-start;
-        }
-
-        footer {
-            margin-top: 20px;
-            text-align: center;
-            font-size: 14px;
-            color: #a8a7a6;
-        }
-    </style>
+    <title>My Blog - Travel Tales</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
-    <header class="header">
-        <a href="index.html" class="home-button"><i class="fas fa-home"></i> HOME</a> <!-- Home button with icon -->
+    <header>
+        <nav>
+            <ul id="nav-list">
+                <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="create-blog.html" class="create-blog"><i class="fas fa-pencil-alt"></i> Create a Travel
+                        Blog</a></li>
 
-        <!-- Search Form -->
-        <form class="search-form" action="search_results.html" method="GET">
-            <input type="search" class="search-input" name="destination" placeholder="Search by destination" required>
-            <button type="submit" class="search-button"><i class="fas fa-search"></i> Search</button>
-        </form>
+            </ul>
+        </nav>
     </header>
 
     <div class="container">
-        <h2>Welcome to Our Travel Blog!</h2>
-        <p>Stay tuned for exciting travel stories and tips.</p>
+        <h2>Travel Blogs</h2>
 
-        <div class="post">
-            <h3>EXPLORING THE MAJESTIC MOUNTAINS</h3>
-            <p>Nestled high above the hustle and bustle of everyday life, the mountains offer a sanctuary for adventure
-                seekers and nature lovers alike. With their towering peaks piercing the sky and valleys cloaked in a
-                blanket of lush greenery, these majestic giants beckon you to explore their breathtaking landscapes.</p>
-            <img src="https://plus.unsplash.com/premium_photo-1672115680958-54438df0ab82?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8bW91bnRhaW5zfGVufDB8fDB8fHww"
-                alt="Mountains">
-            <img src="https://images.unsplash.com/photo-1480497490787-505ec076689f?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxleHBsb3JlLWZlZWR8MXx8fGVufDB8fHx8fA%3D%3D"
-                alt="Beach">
-
-            <div class="comment-section" id="commentSection1">
-                <h4>Comments</h4>
-                <div id="commentsList1"></div>
-                <div class="comment-form">
-                    <textarea id="commentInput1" class="comment-input" placeholder="Add a comment..." rows="1"
-                        oninput="autoResize(this)"></textarea>
-                    <button class="send-button" onclick="addComment(1)">Post</button>
-                </div>
-            </div>
-        </div>
-
-        <div class="post">
-            <h3>Beach Days</h3>
-            <p>A day at the beach is always a good idea! Here are some highlights from my visit.</p>
-            <img src="https://plus.unsplash.com/premium_photo-1669748157617-a3a83cc8ea23?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8c3Vuc2V0JTIwYmVhY2h8ZW58MHx8MHx8fDA%3D"
-                alt="Beach">
-            <img src="https://images.pexels.com/photos/994605/pexels-photo-994605.jpeg?cs=srgb&dl=pexels-fabianwiktor-994605.jpg&fm=jpg"
-                alt="Beach">
-
-            <div class="comment-section" id="commentSection2">
-                <h4>Comments</h4>
-                <div id="commentsList2"></div>
-                <div class="comment-form">
-                    <textarea id="commentInput2" class="comment-input" placeholder="Add a comment..." rows="1"
-                        oninput="autoResize(this)"></textarea>
-                    <button class="send-button" onclick="addComment(2)">Post</button>
-                </div>
-            </div>
+        <div id="posts-container">
+            <!-- Blog posts will be dynamically inserted here -->
         </div>
     </div>
 
-    <footer>
-        <p>&copy; A Travel Blogging Website. All rights reserved.</p>
-    </footer>
-
     <script>
-        function addComment(postId) {
-            const commentInput = document.getElementById(`commentInput${postId}`);
-            const commentsList = document.getElementById(`commentsList${postId}`);
+        // Fetch the logged-in user's data from localStorage
+        const user = JSON.parse(localStorage.getItem('user'));
 
-            if (commentInput.value.trim() !== "") {
-                const commentDiv = document.createElement('div');
-                commentDiv.className = 'comment';
-                commentDiv.textContent = commentInput.value;
-                commentsList.appendChild(commentDiv);
-                commentInput.value = ""; // Clear the input
-                commentInput.style.height = 'auto'; // Reset height after adding comment
+        // If a user is logged in, show the "Create Blog Post" button
+        if (user) {
+            document.getElementById('create-blog-btn').style.display = 'block';
+            document.getElementById('logout-link').style.display = 'block';
+        } else {
+            document.getElementById('logout-link').style.display = 'none'; // Hide logout link if not logged in
+        }
+
+        // Fetch all blog posts
+        async function fetchPosts() {
+            const response = await fetch('http://localhost:5500/api/posts');
+            const result = await response.json();
+
+            const postsContainer = document.getElementById('posts-container');
+            if (response.ok) {
+                if (result.length > 0) {
+                    result.forEach(post => {
+                        const postElement = document.createElement('div');
+                        postElement.classList.add('post');
+                        postElement.innerHTML = `
+                            <h3>${post.title}</h3>
+                            <p>${post.content}</p>
+                            <p><em>Posted on: ${new Date(post.createdAt).toLocaleString()}</em></p>
+                        `;
+                        postsContainer.appendChild(postElement);
+                    });
+                } else {
+                    postsContainer.innerHTML = '<p>No posts found.</p>';
+                }
+            } else {
+                postsContainer.innerHTML = `<p>${result.message || 'Failed to fetch posts'}</p>`;
             }
         }
 
-        function autoResize(textarea) {
-            textarea.style.height = 'auto'; // Reset height to auto
-            textarea.style.height = textarea.scrollHeight + 'px'; // Set height to scrollHeight
-        }
+        fetchPosts();
     </script>
 </body>
 

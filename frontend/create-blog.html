@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create a Travel Blog - Travel Tales</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+
+<body>
+    <header>
+        <div class="logo">
+            <img src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1d/dd/24/8d/caption.jpg?w=1200&h=1200&s=1"
+                alt="The World Travel Guy" style="width: 100px; height: 70px;">
+            <h1>Travel Tales</h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="blog.html"><i class="fas fa-blog"></i> Blogs</a></li>
+                <li><a href="login.html"><i class="fas fa-sign-in-alt"></i> Login</a></li>
+                <li><a href="register.html"><i class="fas fa-user-plus"></i> Register</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div class="container">
+            <h2>Create Your Travel Blog</h2>
+            <p>Share your travel experiences with the world!</p>
+
+            <!-- Check if user is logged in -->
+            <div id="login-prompt" style="display: none;">
+                <p>You must <a href="login.html">login</a> to create a blog post.</p>
+            </div>
+
+            <form id="create-blog-form" style="display: block;">
+                <div class="form-group">
+                    <label for="title">Blog Title:</label>
+                    <input type="text" id="title" placeholder="Enter blog title" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="location">Location:</label>
+                    <input type="text" id="location" placeholder="Enter travel location" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="country">Country:</label>
+                    <input type="text" id="country" placeholder="Enter country" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="date">Date of Visit:</label>
+                    <input type="date" id="date" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="category">Category:</label>
+                    <select id="category" required>
+                        <option value="" disabled selected>Select a category</option>
+                        <option value="adventure">Adventure</option>
+                        <option value="food">Food</option>
+                        <option value="nature">Nature</option>
+                        <option value="culture">Culture</option>
+                        <option value="luxury">Luxury</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="image-upload">Upload an Image:</label>
+                    <input type="file" id="image-upload" accept="image/*" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="content">Write Your Blog:</label>
+                    <textarea id="content" placeholder="Write your blog content here..." rows="8" required></textarea>
+                </div>
+
+                <button type="submit" id="submit-blog-btn">Publish Blog</button>
+            </form>
+        </div>
+    </main>
+
+    <script>
+        // Assume we have a way to check if the user is logged in
+        const userLoggedIn = false; // This should be dynamically set based on login status
+
+        // Show login prompt if not logged in
+        if (!userLoggedIn) {
+            document.getElementById('login-prompt').style.display = 'block';
+            document.getElementById('create-blog-form').style.display = 'none';
+        }
+
+        // Form submission event
+        document.getElementById('create-blog-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const title = document.getElementById('title').value;
+            const location = document.getElementById('location').value;
+            const country = document.getElementById('country').value;
+            const date = document.getElementById('date').value;
+            const category = document.getElementById('category').value;
+            const image = document.getElementById('image-upload').files[0];
+            const content = document.getElementById('content').value;
+
+            const formData = new FormData();
+            formData.append('title', title);
+            formData.append('location', location);
+            formData.append('country', country);
+            formData.append('date', date);
+            formData.append('category', category);
+            formData.append('image', image);
+            formData.append('content', content);
+
+            const response = await fetch('http://localhost:5500/api/blog/create', {
+                method: 'POST',
+                body: formData,
+            });
+
+            const result = await response.json();
+            if (response.ok) {
+                alert(result.message); // Success message
+                window.location.href = 'blog.html'; // Redirect to blog page
+            } else {
+                alert(result.message || 'Failed to publish blog');
+            }
+        });
+    </script>
+</body>
+
+</html>

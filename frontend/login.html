@@ -101,7 +101,9 @@
                     // Login successful
                     alert('Login successful');
                     localStorage.setItem('token', result.token); // Store token if using JWT
-                    window.location.href = 'blog.html'; // Redirect to blog page
+                    localStorage.setItem('username', result.username); // Store the username (assumed to come from the backend)
+                    localStorage.setItem('profileImage', result.profileImage || 'https://via.placeholder.com/30'); // Default profile image if none provided
+                    window.location.href = 'index.html'; // Redirect to homepage
                 } else {
                     alert(result.message || 'An error occurred');
                 }

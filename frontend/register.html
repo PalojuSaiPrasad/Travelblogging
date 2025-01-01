@@ -5,16 +5,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register - Travel Tales</title>
-    <link rel="stylesheet" href="styles.css"> <!-- Link to your CSS file -->
+    <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
-    <!-- Font Awesome for icons -->
+
 </head>
 
 <body>
     <header>
         <nav>
             <ul>
-                <li><a href="index.html"><i class="fas fa-home"></i> HOME</a></li> <!-- Home button with icon -->
+                <li><a href="index.html"><i class="fas fa-home"></i> HOME</a></li>
             </ul>
         </nav>
     </header>
@@ -40,7 +40,7 @@
     </div>
 
     <script>
-        // Register button click event
+
         document.getElementById('register-btn').addEventListener('click', async () => {
             const username = document.getElementById('username').value;
             const email = document.getElementById('email').value;
@@ -57,7 +57,7 @@
             const result = await response.json();
             if (response.ok) {
                 alert('OTP sent to your email.');
-                // Redirect to the OTP verification page with email as a query parameter
+
                 window.location.href = `verify-otp.html?email=${encodeURIComponent(email)}`;
             } else {
                 alert(result.message || 'Registration failed');

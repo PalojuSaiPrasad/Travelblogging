@@ -86,33 +86,31 @@ router.post('/verify-otp', async (req, res) => {
 });
 
 // Login user
-router.post('/login', async (req, res) => {
-    try {
-        const { email, password } = req.body;
+router.post("/login", async (req, res) => {
+    const { email, password } = req.body;
 
-        // Find user by email
+    try {
         const user = await User.findOne({ email });
         if (!user) {
-            return res.status(400).json({ message: 'User not found' });
+            return res.status(404).json({ success: false, message: "User not found." });
         }
 
-        // Check if password is correct
-        const isMatch = await bcrypt.compare(password, user.password);
-        if (!isMatch) {
-            return res.status(400).json({ message: 'Invalid credentials' });
+        const isPasswordValid = await bcrypt.compare(password, user.password);
+        if (!isPasswordValid) {
+            return res.status(400).json({ success: false, message: "Invalid password." });
         }
 
-        // Check if user is verified
         if (!user.isVerified) {
-            return res.status(400).json({ message: 'Please verify your email before logging in' });
+            return res.status(403).json({ success: false, message: "User is not verified." });
         }
 
-        // Generate a token (you can use JWT or any method you prefer)
-        const token = 'your_generated_token'; // Generate a JWT or another token here
-
-        res.status(200).json({ message: 'Login successful', token });
+        res.json({
+            success: true,
+            username: user.username, // Return username to display in navbar
+            profileImage: user.profileImage || "", // Optional
+        });
     } catch (error) {
-        console.error('Error during login:', error);
-        res.status(500).json({ message: 'An error occurred during login' });
+        console.error(error);
+        res.status(500).json({ success: false, message: "Server error." });
     }
 });
