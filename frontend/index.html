@@ -7,6 +7,46 @@
     <title>Travel Tales</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Additional CSS for Profile Section */
+        #user-info {
+            display: none;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .profile-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .profile-img {
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            object-fit: cover;
+        }
+
+        #username {
+            font-size: 14px;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .logout-btn {
+            padding: 5px 10px;
+            background-color: #f44336;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .logout-btn:hover {
+            background-color: #d32f2f;
+        }
+    </style>
 </head>
 
 <body>
@@ -25,9 +65,11 @@
                 <li><a href="register.html" id="register-link"><i class="fas fa-user-plus"></i> REGISTER</a></li>
 
                 <!-- Logged-in User Section -->
-                <li id="user-info" style="display: none;">
-                    <img src="https://via.placeholder.com/30" alt="Profile" class="profile-img" id="profile-img">
-                    <span id="username"></span>
+                <li id="user-info">
+                    <div class="profile-container">
+                        <img src="https://via.placeholder.com/30" alt="Profile" class="profile-img" id="profile-img">
+                        <span id="username"></span>
+                    </div>
                     <button id="logout-btn" class="logout-btn">Logout</button>
                 </li>
             </ul>
@@ -43,31 +85,27 @@
     </main>
 
     <script>
-        // Function to check login status and update the navbar
         function checkLoginStatus() {
-            const user = JSON.parse(localStorage.getItem('user')); // Retrieve user data from localStorage
+            const user = JSON.parse(localStorage.getItem('user'));
             if (user) {
-                // If logged in
                 document.getElementById('login-link').style.display = 'none';
                 document.getElementById('register-link').style.display = 'none';
                 document.getElementById('user-info').style.display = 'flex';
-                document.getElementById('username').textContent = user.username; // Display username
-                document.getElementById('profile-img').src = user.profileImage || "https://via.placeholder.com/30";
+                document.getElementById('username').textContent = user.username;
+                document.getElementById('profile-img').src = user.profileImage || "https://via.placeholder.com/40";
             } else {
-                // If not logged in
                 document.getElementById('login-link').style.display = 'inline-block';
                 document.getElementById('register-link').style.display = 'inline-block';
                 document.getElementById('user-info').style.display = 'none';
             }
         }
 
-        // Logout functionality
         document.getElementById('logout-btn')?.addEventListener('click', () => {
-            localStorage.removeItem('user'); // Remove user data
-            window.location.reload(); // Reload page to reflect changes
+            localStorage.removeItem('user');
+            localStorage.removeItem('token');
+            window.location.reload();
         });
 
-        // Call function on page load
         checkLoginStatus();
     </script>
 </body>
