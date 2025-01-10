@@ -3,7 +3,6 @@ const Blog = require('../models/Blog');
 const auth = require('../middleware/auth');
 const router = express.Router();
 
-// Create a new blog post
 router.post('/', auth, async (req, res) => {
     const { title, location, country, content } = req.body;
 
@@ -24,7 +23,6 @@ router.post('/', auth, async (req, res) => {
     }
 });
 
-// Get all blog posts
 router.get('/', async (req, res) => {
     try {
         const blogs = await Blog.find().populate('user', 'username');
@@ -34,7 +32,6 @@ router.get('/', async (req, res) => {
     }
 });
 
-// Get a single blog post by ID
 router.get('/:id', async (req, res) => {
     try {
         const blog = await Blog.findById(req.params.id).populate('user', 'username');
@@ -47,7 +44,6 @@ router.get('/:id', async (req, res) => {
     }
 });
 
-// Update a blog post
 router.put('/:id', auth, async (req, res) => {
     const { title, location, country, content } = req.body;
 
@@ -73,7 +69,6 @@ router.put('/:id', auth, async (req, res) => {
     }
 });
 
-// Delete a blog post
 router.delete('/:id', auth, async (req, res) => {
     try {
         const blog = await Blog.findById(req.params.id);
