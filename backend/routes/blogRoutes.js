@@ -1,5 +1,6 @@
 const express = require('express');
-const Blog = require('../models/blog');
+const Blog = require('../models/Blog');
+const User = require('../models/User');
 const auth = require('../middleware/auth');
 const router = express.Router();
 
@@ -50,14 +51,28 @@ router.post('/', auth, async (req, res) => {
     }
 });
 
-// Get all blogs
+// Fetch blogs with optional search query
 router.get('/', async (req, res) => {
+    const { search } = req.query;
+    const query = {};
+
+    if (search) {
+        const user = await User.findOne({ username: { $regex: search, $options: 'i' } });
+        query.$or = [
+            { title: { $regex: search, $options: 'i' } },
+            { location: { $regex: search, $options: 'i' } },
+            { country: { $regex: search, $options: 'i' } },
+            { user: user ? user._id : null },
+            { category: { $regex: search, $options: 'i' } }
+        ];
+    }
+
     try {
-        const blogs = await Blog.find().populate('user', 'username profileImage');
+        const blogs = await Blog.find(query).populate('user', 'username profileImage').sort({ createdAt: -1 });
         res.json(blogs);
     } catch (err) {
         console.error('Error fetching blogs:', err);
-        res.status(500).json({ message: 'Error fetching blogs' });
+        res.status(500).json({ message: 'Server error' });
     }
 });
 

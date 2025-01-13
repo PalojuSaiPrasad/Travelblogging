@@ -305,6 +305,27 @@
             color: #ff6b6b !important;
             font-weight: bold;
         }
+
+        .search-container {
+            display: flex;
+            align-items: center;
+            margin-left: auto;
+        }
+
+        .search-container input {
+            padding: 5px;
+            margin-right: 5px;
+        }
+
+        .search-container button {
+            padding: 5px 10px;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
     </style>
 </head>
 
@@ -334,6 +355,13 @@
 
     <main>
         <div class="container">
+            <div class="header-container">
+                <h2>Travel Blogs</h2>
+                <div class="search-container">
+                    <input type="text" id="search-input" placeholder="Search by title or location">
+                    <button id="search-btn">Search</button>
+                </div>
+            </div>
             <h1 class="page-title">Travel Stories</h1>
             <div id="posts-container" class="blog-grid">
                 <!-- Posts will be dynamically inserted here -->
@@ -369,9 +397,9 @@
             checkLoginStatus();
         });
 
-        async function fetchPosts() {
+        async function fetchPosts(query = '') {
             try {
-                const response = await fetch('http://localhost:5501/api/blog');
+                const response = await fetch(`http://localhost:5501/api/blog?search=${encodeURIComponent(query)}`);
                 const result = await response.json();
 
                 const postsContainer = document.getElementById('posts-container');
@@ -449,6 +477,12 @@
 
         // Call fetchPosts when the page loads
         document.addEventListener('DOMContentLoaded', fetchPosts);
+
+        // Add event listener for search button
+        document.getElementById('search-btn').addEventListener('click', () => {
+            const query = document.getElementById('search-input').value;
+            fetchPosts(query);
+        });
     </script>
 </body>
 
