@@ -1,28 +1,40 @@
 const mongoose = require('mongoose');
 
-// Define the User schema
-const UserSchema = new mongoose.Schema({
+const userSchema = new mongoose.Schema({
     username: {
         type: String,
-        required: true,
-        unique: true,
+        required: [true, 'Username is required'],
+        trim: true,
+        minlength: [3, 'Username must be at least 3 characters long'],
+        maxlength: [30, 'Username cannot exceed 30 characters']
     },
     email: {
         type: String,
-        required: true,
+        required: [true, 'Email is required'],
         unique: true,
+        trim: true,
+        lowercase: true,
+        match: [/^[^\s@]+@[^\s@]+\.[^\s@]+$/, 'Please enter a valid email']
     },
     password: {
         type: String,
-        required: true,
+        required: [true, 'Password is required'],
+        minlength: [6, 'Password must be at least 6 characters long']
+    },
+    profileImage: {
+        type: String,
+        default: 'https://via.placeholder.com/150'
     },
     isVerified: {
         type: Boolean,
-        default: false,
+        default: false
     },
     otp: String,
     otpExpiresAt: Date,
+    createdAt: {
+        type: Date,
+        default: Date.now
+    }
 });
 
-// Export the User model
-module.exports = mongoose.model('User', UserSchema);
+module.exports = mongoose.model('User', userSchema);

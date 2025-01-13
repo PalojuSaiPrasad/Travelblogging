@@ -154,6 +154,20 @@
     </main>
 
     <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const token = localStorage.getItem('token');
+            console.log('Current token:', token);
+
+            if (!token) {
+                console.log('No token found, redirecting to login');
+                window.location.href = 'login.html';
+                return;
+            }
+
+            // Show the form if token exists
+            document.getElementById('create-blog-form').style.display = 'block';
+        });
+
         // Check if the user is logged in
         function checkLoginStatus() {
             const user = JSON.parse(localStorage.getItem('user'));
@@ -183,36 +197,75 @@
         document.getElementById('create-blog-form').addEventListener('submit', async (e) => {
             e.preventDefault();
 
-            const title = document.getElementById('title').value;
-            const location = document.getElementById('location').value;
-            const country = document.getElementById('country').value;
-            const date = document.getElementById('date').value;
-            const category = document.getElementById('category').value;
-            const image = document.getElementById('image-upload').files[0];
-            const content = document.getElementById('content').value;
+            const token = localStorage.getItem('token');
+            if (!token) {
+                alert('Please login to create a blog');
+                return;
+            }
 
-            const formData = new FormData();
-            formData.append('title', title);
-            formData.append('location', location);
-            formData.append('country', country);
-            formData.append('date', date);
-            formData.append('category', category);
-            formData.append('image', image);
-            formData.append('content', content);
+            // Handle image file
+            const imageFile = document.getElementById('image-upload').files[0];
+            let imageUrl = '';
 
-            const response = await fetch('http://localhost:5500/api/blog/create', {
-                method: 'POST',
-                body: formData,
-            });
+            if (imageFile) {
+                // Convert image to base64
+                const reader = new FileReader();
+                imageUrl = await new Promise((resolve) => {
+                    reader.onload = (e) => resolve(e.target.result);
+                    reader.readAsDataURL(imageFile);
+                });
+            }
 
-            const result = await response.json();
-            if (response.ok) {
-                alert(result.message); // Success message
-                window.location.href = 'blog.html'; // Redirect to blog page
-            } else {
-                alert(result.message || 'Failed to publish blog');
+            const blogData = {
+                title: document.getElementById('title').value,
+                location: document.getElementById('location').value,
+                country: document.getElementById('country').value,
+                date: document.getElementById('date').value,
+                category: document.getElementById('category').value,
+                content: document.getElementById('content').value,
+                image: imageUrl // Send base64 image string
+            };
+
+            try {
+                const response = await fetch('http://localhost:5501/api/blog', {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(blogData)
+                });
+
+                const result = await response.json();
+                console.log('Server response:', result);
+
+                if (response.ok) {
+                    alert('Blog published successfully!');
+                    window.location.href = 'blog.html';
+                } else {
+                    throw new Error(result.message || 'Failed to publish blog');
+                }
+            }
+            catch (error) {
+                console.error('Error details:', error);
+                alert(`Error publishing blog: ${error.message}`);
             }
         });
+
+        // Add this to check if server is reachable
+        async function checkServerConnection() {
+            try {
+                const response = await fetch('http://localhost:5501/api/blog', {
+                    method: 'GET',
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                });
+                console.log('Server connection test:', response.status);
+            } catch (error) {
+                console.error('Server connection test failed:', error);
+            }
+        }
     </script>
 </body>
 

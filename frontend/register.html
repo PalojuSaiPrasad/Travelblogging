@@ -42,25 +42,50 @@
     <script>
 
         document.getElementById('register-btn').addEventListener('click', async () => {
-            const username = document.getElementById('username').value;
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
+            try {
+                const username = document.getElementById('username').value.trim();
+                const email = document.getElementById('email').value.trim();
+                const password = document.getElementById('password').value;
 
-            const response = await fetch('http://localhost:5500/api/auth/register', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ username, email, password }),
-            });
+                // Validate inputs
+                if (!username || !email || !password) {
+                    alert('Please fill in all fields');
+                    return;
+                }
 
-            const result = await response.json();
-            if (response.ok) {
-                alert('OTP sent to your email.');
+                // Email validation
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailRegex.test(email)) {
+                    alert('Please enter a valid email address');
+                    return;
+                }
 
-                window.location.href = `verify-otp.html?email=${encodeURIComponent(email)}`;
-            } else {
-                alert(result.message || 'Registration failed');
+                // Password validation (at least 6 characters)
+                if (password.length < 6) {
+                    alert('Password must be at least 6 characters long');
+                    return;
+                }
+
+                const response = await fetch('http://localhost:5501/api/auth/register', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ username, email, password }),
+                });
+
+                const result = await response.json();
+                console.log('Registration response:', result);
+
+                if (response.ok) {
+                    alert('Registration successful! Please check your email for OTP.');
+                    window.location.href = `verify-otp.html?email=${encodeURIComponent(email)}`;
+                } else {
+                    throw new Error(result.message || 'Registration failed');
+                }
+            } catch (error) {
+                console.error('Registration error:', error);
+                alert(error.message || 'An error occurred during registration');
             }
         });
     </script>
