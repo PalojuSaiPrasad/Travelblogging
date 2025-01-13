@@ -4,70 +4,451 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Blog - Travel Tales</title>
+    <title>Travel Blogs - Travel Tales</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Main container styles */
+        .container {
+            max-width: 1200px;
+            padding: 20px;
+            margin: 0 auto;
+        }
+
+        /* Blog grid layout */
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            padding: 1rem;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        /* Blog card styles */
+        .blog-card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            width: 350px;
+            /* Fixed width */
+            height: 600px;
+            /* Fixed height */
+            display: flex;
+            flex-direction: column;
+            margin: 0 auto;
+        }
+
+        .blog-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .blog-image {
+            width: 100%;
+            height: 220px;
+            /* Fixed height for images */
+            object-fit: cover;
+            border-bottom: 1px solid #eee;
+        }
+
+        .blog-card-content {
+            padding: 1.5rem;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .blog-card-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .author-image {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 1rem;
+            object-fit: cover;
+        }
+
+        .author-name {
+            font-weight: 600;
+            color: #333;
+        }
+
+        .blog-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin: 0.5rem 0;
+            line-height: 1.3;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            height: 3.9rem;
+            /* Fixed height for title */
+        }
+
+        .blog-location {
+            color: #666;
+            font-size: 1.1rem;
+            margin: 0.5rem 0;
+            display: flex;
+            align-items: center;
+        }
+
+        .blog-location i {
+            margin-right: 0.5rem;
+            color: #ff6b6b;
+        }
+
+        .blog-category {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            background-color: #f8f9fa;
+            border-radius: 20px;
+            color: #666;
+            font-size: 0.9rem;
+            margin: 0.5rem 0;
+        }
+
+        .blog-excerpt {
+            color: #666;
+            line-height: 1.6;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            height: 4.8rem;
+            /* Fixed height for excerpt */
+            margin: 1rem 0;
+        }
+
+        .blog-info {
+            margin-top: auto;
+        }
+
+        .blog-date {
+            color: #999;
+            font-size: 0.9rem;
+            padding-top: 1rem;
+            border-top: 1px solid #eee;
+            margin-top: auto;
+        }
+
+        .read-more {
+            color: #ff6b6b;
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-block;
+            margin-top: 1rem;
+            transition: color 0.3s ease;
+        }
+
+        .read-more:hover {
+            color: #ff4f4f;
+        }
+
+        /* Responsive design */
+        @media (max-width: 1200px) {
+            .container {
+                max-width: 960px;
+            }
+
+            .blog-card {
+                width: 300px;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .blog-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .container {
+                max-width: 720px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .blog-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .container {
+                max-width: 540px;
+            }
+
+            .blog-card {
+                width: 100%;
+                max-width: 350px;
+            }
+        }
+
+        /* Page title styles */
+        .page-title {
+            text-align: center;
+            margin: 2rem 0;
+            color: #ffffff;
+            font-size: 2.5rem;
+            font-weight: 700;
+        }
+
+        /* Loading and error states */
+        .loading,
+        .no-posts {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 3rem;
+            font-size: 1.2rem;
+            color: #666;
+        }
+
+        .loading i,
+        .no-posts i {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: #ff6b6b;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            background-color: black;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo h1 {
+            color: white;
+            margin: 0;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            align-items: center;
+        }
+
+        nav ul li {
+            margin-right: 20px;
+        }
+
+        nav ul li:last-child {
+            margin-right: 0;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        #user-info {
+            display: flex;
+            align-items: center;
+            position: relative;
+            cursor: pointer;
+            color: white;
+        }
+
+        #user-info img {
+            margin-right: 10px;
+        }
+
+        .menu-bar {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background-color: white;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            display: none;
+            padding: 5px 0;
+            min-width: 120px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+        }
+
+        #user-info:hover .menu-bar {
+            display: block;
+        }
+
+        .menu-bar a {
+            color: #333 !important;
+            padding: 8px 15px;
+            display: block;
+            text-decoration: none;
+        }
+
+        .menu-bar a:hover {
+            background-color: #f5f5f5;
+        }
+
+        .active {
+            color: #ff6b6b !important;
+            font-weight: bold;
+        }
+    </style>
 </head>
 
 <body>
     <header>
+        <div class="logo">
+            <img src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1d/dd/24/8d/caption.jpg?w=1200&h=1200&s=1"
+                alt="The World Travel Guy" style="width: 100px; height: 70px;">
+            <h1>Travel Tales</h1>
+        </div>
         <nav>
-            <ul id="nav-list">
+            <ul>
                 <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
-                <li><a href="create-blog.html" class="create-blog"><i class="fas fa-pencil-alt"></i> Create a Travel
-                        Blog</a></li>
-
+                <li><a href="blog.html" class="active"><i class="fas fa-blog"></i> Blogs</a></li>
+                <li><a href="create-blog.html"><i class="fas fa-pencil-alt"></i> Create a Blog</a></li>
+                <li id="user-info" style="display: none;">
+                    <img id="profile-img" src="" alt="Profile Image"
+                        style="width: 40px; height: 40px; border-radius: 50%;">
+                    <span id="username"></span>
+                    <div class="menu-bar">
+                        <a href="#" id="logout-btn">Logout</a>
+                    </div>
+                </li>
             </ul>
         </nav>
     </header>
 
-    <div class="container">
-        <h2>Travel Blogs</h2>
-
-        <div id="posts-container">
-            <!-- Blog posts will be dynamically inserted here -->
+    <main>
+        <div class="container">
+            <h1 class="page-title">Travel Stories</h1>
+            <div id="posts-container" class="blog-grid">
+                <!-- Posts will be dynamically inserted here -->
+                <div class="loading">
+                    <i class="fas fa-spinner fa-spin"></i>
+                    <p>Loading amazing travel stories...</p>
+                </div>
+            </div>
         </div>
-    </div>
+    </main>
 
     <script>
-        // Fetch the logged-in user's data from localStorage
-        const user = JSON.parse(localStorage.getItem('user'));
-
-        // If a user is logged in, show the "Create Blog Post" button
-        if (user) {
-            document.getElementById('create-blog-btn').style.display = 'block';
-            document.getElementById('logout-link').style.display = 'block';
-        } else {
-            document.getElementById('logout-link').style.display = 'none'; // Hide logout link if not logged in
-        }
-
-        // Fetch all blog posts
-        async function fetchPosts() {
-            const response = await fetch('http://localhost:5500/api/posts');
-            const result = await response.json();
-
-            const postsContainer = document.getElementById('posts-container');
-            if (response.ok) {
-                if (result.length > 0) {
-                    result.forEach(post => {
-                        const postElement = document.createElement('div');
-                        postElement.classList.add('post');
-                        postElement.innerHTML = `
-                            <h3>${post.title}</h3>
-                            <p>${post.content}</p>
-                            <p><em>Posted on: ${new Date(post.createdAt).toLocaleString()}</em></p>
-                        `;
-                        postsContainer.appendChild(postElement);
-                    });
-                } else {
-                    postsContainer.innerHTML = '<p>No posts found.</p>';
-
-                }
+        function checkLoginStatus() {
+            const user = JSON.parse(localStorage.getItem('user'));
+            if (user) {
+                document.getElementById('user-info').style.display = 'flex';
+                document.getElementById('username').textContent = user.username;
+                document.getElementById('profile-img').src = user.profileImage || "https://via.placeholder.com/40";
             } else {
-                postsContainer.innerHTML = `<p>${result.message || 'Failed to fetch posts'}</p>`;
+                document.getElementById('user-info').style.display = 'none';
             }
         }
 
-        fetchPosts();
+        document.getElementById('logout-btn')?.addEventListener('click', (e) => {
+            e.preventDefault();
+            localStorage.removeItem('user');
+            localStorage.removeItem('token');
+            window.location.href = 'login.html';
+        });
+
+        // Call checkLoginStatus when the page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            checkLoginStatus();
+        });
+
+        async function fetchPosts() {
+            try {
+                const response = await fetch('http://localhost:5501/api/blog');
+                const result = await response.json();
+
+                const postsContainer = document.getElementById('posts-container');
+
+                if (response.ok) {
+                    if (result.length > 0) {
+                        postsContainer.innerHTML = result.map(post => `
+                            <article class="blog-card">
+                                <img src="${post.image || 'https://via.placeholder.com/400x300'}" 
+                                    alt="${post.title}" 
+                                    class="blog-image"
+                                    onerror="this.src='https://via.placeholder.com/400x300'">
+                                <div class="blog-card-content">
+                                    <div>
+                                        <div class="blog-card-header">
+                                            <img src="${post.user?.profileImage || 'https://via.placeholder.com/40'}" 
+                                                alt="${post.user?.username || 'User'}" 
+                                                class="author-image"
+                                                onerror="this.src='https://via.placeholder.com/40'">
+                                            <span class="author-name">${post.user?.username || 'Anonymous'}</span>
+                                        </div>
+                                        
+                                        <h3 class="blog-title">${post.title}</h3>
+                                        
+                                        <div class="blog-location">
+                                            <i class="fas fa-map-marker-alt"></i>
+                                            <span>${post.location}, ${post.country}</span>
+                                        </div>
+                                        
+                                        <span class="blog-category">
+                                            <i class="fas fa-tag"></i> ${post.category}
+                                        </span>
+                                        
+                                        <p class="blog-excerpt">${post.content.substring(0, 150)}...</p>
+                                    </div>
+                                    
+                                    <div class="blog-info">
+                                        <a href="/blog-detail.html?id=${post._id}" class="read-more">
+                                            Read More <i class="fas fa-arrow-right"></i>
+                                        </a>
+                                        
+                                        <div class="blog-date">
+                                            <i class="far fa-calendar-alt"></i>
+                                            ${new Date(post.date).toLocaleDateString('en-US', {
+                            year: 'numeric',
+                            month: 'long',
+                            day: 'numeric'
+                        })}
+                                        </div>
+                                    </div>
+                                </div>
+                            </article>
+                        `).join('');
+                    } else {
+                        postsContainer.innerHTML = `
+                            <div class="no-posts">
+                                <i class="fas fa-book-open"></i>
+                                <p>No travel stories yet. Be the first to share your adventure!</p>
+                            </div>
+                        `;
+                    }
+                } else {
+                    throw new Error(result.message || 'Failed to fetch posts');
+                }
+            } catch (error) {
+                console.error('Error fetching posts:', error);
+                document.getElementById('posts-container').innerHTML = `
+                    <div class="no-posts">
+                        <i class="fas fa-exclamation-circle"></i>
+                        <p>Error loading posts: ${error.message}</p>
+                    </div>
+                `;
+            }
+        }
+
+        // Call fetchPosts when the page loads
+        document.addEventListener('DOMContentLoaded', fetchPosts);
     </script>
 </body>
 

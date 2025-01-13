@@ -3,6 +3,7 @@ const User = require('../models/User'); // User model
 const bcrypt = require('bcryptjs');
 const crypto = require('crypto'); // For generating OTPs
 const { sendMail } = require('../utils/sendMail'); // Utility function to send emails
+const jwt = require('jsonwebtoken');
 
 const router = express.Router();
 
@@ -32,7 +33,7 @@ router.post('/register', async (req, res) => {
         await sendMail(
             email,
             'OTP Verification Code',
-            `Your OTP code is ${otp}. It will expire in 10 minutes.`
+            `Your OTP code is ${otp}.It will expire in 10 minutes.`
         );
 
         // Temporarily save the user with unverified status
@@ -85,32 +86,52 @@ router.post('/verify-otp', async (req, res) => {
     }
 });
 
-// Login user
-router.post("/login", async (req, res) => {
-    const { email, password } = req.body;
-
+// Login route
+router.post('/login', async (req, res) => {
     try {
+        const { email, password } = req.body;
+        console.log('Login attempt for:', email);
+
+        // Find user
         const user = await User.findOne({ email });
         if (!user) {
-            return res.status(404).json({ success: false, message: "User not found." });
+            return res.status(400).json({ message: 'Invalid credentials' });
         }
 
-        const isPasswordValid = await bcrypt.compare(password, user.password);
-        if (!isPasswordValid) {
-            return res.status(400).json({ success: false, message: "Invalid password." });
+        // Validate password
+        const isMatch = await bcrypt.compare(password, user.password);
+        if (!isMatch) {
+            return res.status(400).json({ message: 'Invalid credentials' });
         }
 
-        if (!user.isVerified) {
-            return res.status(403).json({ success: false, message: "User is not verified." });
-        }
+        // Create token payload
+        const payload = {
+            id: user._id,
+            email: user.email
+        };
 
+        // Generate token
+        const token = jwt.sign(
+            payload,
+            process.env.JWT_SECRET,
+            { expiresIn: '24h' }
+        );
+
+        console.log('Generated token:', token);
+
+        // Send response
         res.json({
-            success: true,
-            username: user.username, // Return username to display in navbar
-            profileImage: user.profileImage || "", // Optional
+            token,
+            user: {
+                id: user._id,
+                username: user.username,
+                email: user.email,
+                profileImage: user.profileImage
+            }
         });
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ success: false, message: "Server error." });
+
+    } catch (err) {
+        console.error('Login error:', err);
+        res.status(500).json({ message: 'Server error' });
     }
 });

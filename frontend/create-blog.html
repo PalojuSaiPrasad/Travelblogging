@@ -7,6 +7,69 @@
     <title>Create a Travel Blog - Travel Tales</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            background-color: black;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        nav ul li {
+            margin-right: 20px;
+        }
+
+        #user-info {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+        }
+
+        #user-info img {
+            margin-bottom: 5px;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+        }
+
+        #username {
+            color: white;
+        }
+
+        .menu-bar {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background-color: white;
+            border: 1px solid #ccc;
+            display: none;
+            flex-direction: column;
+            z-index: 1;
+        }
+
+        .menu-bar a {
+            padding: 10px;
+            text-decoration: none;
+            color: black;
+        }
+
+        .menu-bar a:hover {
+            background-color: #f0f0f0;
+        }
+
+        #user-info:hover .menu-bar {
+            display: flex;
+        }
+    </style>
 </head>
 
 <body>
@@ -20,8 +83,14 @@
             <ul>
                 <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
                 <li><a href="blog.html"><i class="fas fa-blog"></i> Blogs</a></li>
-                <li><a href="login.html"><i class="fas fa-sign-in-alt"></i> Login</a></li>
-                <li><a href="register.html"><i class="fas fa-user-plus"></i> Register</a></li>
+                <!-- <li><a href="create-blog.html" class="active"><i class="fas fa-pencil-alt"></i> Create a Blog</a></li> -->
+                <li id="user-info" style="display: none;">
+                    <img id="profile-img" src="" alt="Profile Image">
+                    <span id="username"></span>
+                    <div class="menu-bar">
+                        <a href="#" id="logout-btn">Logout</a>
+                    </div>
+                </li>
             </ul>
         </nav>
     </header>
@@ -36,7 +105,7 @@
                 <p>You must <a href="login.html">login</a> to create a blog post.</p>
             </div>
 
-            <form id="create-blog-form" style="display: block;">
+            <form id="create-blog-form" style="display: none;">
                 <div class="form-group">
                     <label for="title">Blog Title:</label>
                     <input type="text" id="title" placeholder="Enter blog title" required>
@@ -85,49 +154,118 @@
     </main>
 
     <script>
-        // Assume we have a way to check if the user is logged in
-        const userLoggedIn = false; // This should be dynamically set based on login status
+        document.addEventListener('DOMContentLoaded', () => {
+            const token = localStorage.getItem('token');
+            console.log('Current token:', token);
 
-        // Show login prompt if not logged in
-        if (!userLoggedIn) {
-            document.getElementById('login-prompt').style.display = 'block';
-            document.getElementById('create-blog-form').style.display = 'none';
+            if (!token) {
+                console.log('No token found, redirecting to login');
+                window.location.href = 'login.html';
+                return;
+            }
+
+            // Show the form if token exists
+            document.getElementById('create-blog-form').style.display = 'block';
+        });
+
+        // Check if the user is logged in
+        function checkLoginStatus() {
+            const user = JSON.parse(localStorage.getItem('user'));
+            if (user) {
+                document.getElementById('user-info').style.display = 'flex';
+                document.getElementById('username').textContent = user.username;
+                document.getElementById('profile-img').src = user.profileImage || "https://via.placeholder.com/40";
+                document.getElementById('create-blog-form').style.display = 'block';
+                document.getElementById('login-prompt').style.display = 'none';
+            } else {
+                document.getElementById('user-info').style.display = 'none';
+                document.getElementById('create-blog-form').style.display = 'none';
+                document.getElementById('login-prompt').style.display = 'block';
+            }
         }
+
+        // Logout functionality
+        document.getElementById('logout-btn')?.addEventListener('click', () => {
+            localStorage.removeItem('user');
+            localStorage.removeItem('token');
+            window.location.href = 'login.html';
+        });
+
+        checkLoginStatus();
 
         // Form submission event
         document.getElementById('create-blog-form').addEventListener('submit', async (e) => {
             e.preventDefault();
 
-            const title = document.getElementById('title').value;
-            const location = document.getElementById('location').value;
-            const country = document.getElementById('country').value;
-            const date = document.getElementById('date').value;
-            const category = document.getElementById('category').value;
-            const image = document.getElementById('image-upload').files[0];
-            const content = document.getElementById('content').value;
+            const token = localStorage.getItem('token');
+            if (!token) {
+                alert('Please login to create a blog');
+                return;
+            }
 
-            const formData = new FormData();
-            formData.append('title', title);
-            formData.append('location', location);
-            formData.append('country', country);
-            formData.append('date', date);
-            formData.append('category', category);
-            formData.append('image', image);
-            formData.append('content', content);
+            // Handle image file
+            const imageFile = document.getElementById('image-upload').files[0];
+            let imageUrl = '';
 
-            const response = await fetch('http://localhost:5500/api/blog/create', {
-                method: 'POST',
-                body: formData,
-            });
+            if (imageFile) {
+                // Convert image to base64
+                const reader = new FileReader();
+                imageUrl = await new Promise((resolve) => {
+                    reader.onload = (e) => resolve(e.target.result);
+                    reader.readAsDataURL(imageFile);
+                });
+            }
 
-            const result = await response.json();
-            if (response.ok) {
-                alert(result.message); // Success message
-                window.location.href = 'blog.html'; // Redirect to blog page
-            } else {
-                alert(result.message || 'Failed to publish blog');
+            const blogData = {
+                title: document.getElementById('title').value,
+                location: document.getElementById('location').value,
+                country: document.getElementById('country').value,
+                date: document.getElementById('date').value,
+                category: document.getElementById('category').value,
+                content: document.getElementById('content').value,
+                image: imageUrl // Send base64 image string
+            };
+
+            try {
+                const response = await fetch('http://localhost:5501/api/blog', {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(blogData)
+                });
+
+                const result = await response.json();
+                console.log('Server response:', result);
+
+                if (response.ok) {
+                    alert('Blog published successfully!');
+                    window.location.href = 'blog.html';
+                } else {
+                    throw new Error(result.message || 'Failed to publish blog');
+                }
+            }
+            catch (error) {
+                console.error('Error details:', error);
+                alert(`Error publishing blog: ${error.message}`);
             }
         });
+
+        // Add this to check if server is reachable
+        async function checkServerConnection() {
+            try {
+                const response = await fetch('http://localhost:5501/api/blog', {
+                    method: 'GET',
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                });
+                console.log('Server connection test:', response.status);
+            } catch (error) {
+                console.error('Server connection test failed:', error);
+            }
+        }
     </script>
 </body>
 

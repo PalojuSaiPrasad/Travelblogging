@@ -3,87 +3,70 @@ const Blog = require('../models/Blog');
 const auth = require('../middleware/auth');
 const router = express.Router();
 
+// Create a new blog post
 router.post('/', auth, async (req, res) => {
-    const { title, location, country, content } = req.body;
-
     try {
+        console.log('Received request body:', req.body);
+        console.log('Authenticated user:', req.user);
+
+        const { title, location, country, date, category, content, image } = req.body;
+
+        // Validate required fields
+        const requiredFields = { title, location, country, date, category, content, image };
+        const missingFields = Object.entries(requiredFields)
+            .filter(([key, value]) => !value)
+            .map(([key]) => key);
+
+        if (missingFields.length > 0) {
+            console.log('Missing fields:', missingFields);
+            return res.status(400).json({
+                message: 'Missing required fields',
+                missingFields
+            });
+        }
+
         const blog = new Blog({
             title,
             location,
             country,
             date,
+            category,
             content,
-            user: req.user
+            image,
+            user: req.user.id
         });
 
-        await blog.save();
-        res.status(201).json(blog);
+        console.log('Attempting to save blog:', blog);
+        const savedBlog = await blog.save();
+        console.log('Blog saved successfully:', savedBlog);
+
+        res.status(201).json(savedBlog);
     } catch (err) {
-        res.status(500).json({ message: 'Server error' });
+        console.error('Blog creation error:', err);
+        res.status(500).json({
+            message: 'Server error while creating blog',
+            error: err.message
+        });
     }
 });
 
+// Get all blogs
 router.get('/', async (req, res) => {
     try {
-        const blogs = await Blog.find().populate('user', 'username');
-        res.status(200).json(blogs);
+        const blogs = await Blog.find().populate('user', 'username profileImage');
+        res.json(blogs);
     } catch (err) {
-        res.status(500).json({ message: 'Server error' });
+        console.error('Error fetching blogs:', err);
+        res.status(500).json({ message: 'Error fetching blogs' });
     }
 });
 
-router.get('/:id', async (req, res) => {
+// Add this route to test token validity
+router.get('/test-auth', auth, (req, res) => {
     try {
-        const blog = await Blog.findById(req.params.id).populate('user', 'username');
-        if (!blog) {
-            return res.status(404).json({ message: 'Blog not found' });
-        }
-        res.status(200).json(blog);
-    } catch (err) {
-        res.status(500).json({ message: 'Server error' });
-    }
-});
-
-router.put('/:id', auth, async (req, res) => {
-    const { title, location, country, content } = req.body;
-
-    try {
-        const blog = await Blog.findById(req.params.id);
-        if (!blog) {
-            return res.status(404).json({ message: 'Blog not found' });
-        }
-
-        if (blog.user.toString() !== req.user) {
-            return res.status(401).json({ message: 'Unauthorized' });
-        }
-
-        blog.title = title;
-        blog.location = location;
-        blog.country = country;
-        blog.content = content;
-
-        await blog.save();
-        res.status(200).json(blog);
-    } catch (err) {
-        res.status(500).json({ message: 'Server error' });
-    }
-});
-
-router.delete('/:id', auth, async (req, res) => {
-    try {
-        const blog = await Blog.findById(req.params.id);
-        if (!blog) {
-            return res.status(404).json({ message: 'Blog not found' });
-        }
-
-        if (blog.user.toString() !== req.user.id) {
-            return res.status(401).json({ message: 'Unauthorized' });
-        }
-
-        await blog.remove();
-        res.status(200).json({ message: 'Blog deleted' });
-    } catch (err) {
-        res.status(500).json({ message: 'Server error' });
+        res.json({ message: 'Token is valid', user: req.user });
+    } catch (error) {
+        res.status(401).json({ message: 'Token validation failed' });
     }
 });
 
