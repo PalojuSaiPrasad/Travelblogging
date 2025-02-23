@@ -385,7 +385,7 @@
             if (user) {
                 document.getElementById('user-info').style.display = 'flex';
                 document.getElementById('username').textContent = user.username;
-                document.getElementById('profile-img').src = user.profileImage || "https://via.placeholder.com/40";
+                document.getElementById('profile-img').src = "./defppic.jpg";
             } else {
                 document.getElementById('user-info').style.display = 'none';
             }
@@ -414,17 +414,17 @@
                     if (result.length > 0) {
                         postsContainer.innerHTML = result.map(post => `
                             <article class="blog-card">
-                                <img src="${post.image || 'https://via.placeholder.com/400x300'}" 
+                                <img src="${post.image || './defppic.jpg'}" 
                                     alt="${post.title}" 
                                     class="blog-image"
-                                    onerror="this.src='https://via.placeholder.com/400x300'">
+                                    onerror="this.src='./defppic.jpg'">
                                 <div class="blog-card-content">
                                     <div>
                                         <div class="blog-card-header">
-                                            <img src="${post.user?.profileImage || 'https://via.placeholder.com/40'}" 
+                                            <img src="${post.user?.profileImage || './defppic.jpg'}" 
                                                 alt="${post.user?.username || 'User'}" 
                                                 class="author-image"
-                                                onerror="this.src='https://via.placeholder.com/40'">
+                                                onerror="this.src='./defppic.jpg'">
                                             <span class="author-name">${post.user?.username || 'Anonymous'}</span>
                                         </div>
                                         

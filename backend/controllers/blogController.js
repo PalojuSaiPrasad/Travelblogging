@@ -15,7 +15,7 @@ exports.createBlog = async (req, res) => {
             date,
             image: req.file ? req.file.filename : null, // Save image filename if uploaded
         });
-
+        z
         await newBlog.save();
         res.status(201).json({ message: 'Blog created successfully', blog: newBlog });
     } catch (err) {

@@ -67,7 +67,7 @@
                 <!-- Logged-in User Section -->
                 <li id="user-info">
                     <div class="profile-container">
-                        <img src="https://via.placeholder.com/30" alt="Profile" class="profile-img" id="profile-img">
+                        <img src="./defppic.jpg" alt="Profile" class="profile-img" id="profile-img">
                         <span id="username"></span>
                     </div>
                     <button id="logout-btn" class="logout-btn">Logout</button>
@@ -92,7 +92,7 @@
                 document.getElementById('register-link').style.display = 'none';
                 document.getElementById('user-info').style.display = 'flex';
                 document.getElementById('username').textContent = user.username;
-                document.getElementById('profile-img').src = user.profileImage || "https://via.placeholder.com/40";
+                document.getElementById('profile-img').src = "./defppic.jpg";
             } else {
                 document.getElementById('login-link').style.display = 'inline-block';
                 document.getElementById('register-link').style.display = 'inline-block';
