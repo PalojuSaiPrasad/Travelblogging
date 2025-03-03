@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog Details - Travel Tales</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            background-color: black;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo h1 {
+            color: white;
+            margin: 0;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            align-items: center;
+        }
+
+        nav ul li {
+            margin-right: 20px;
+        }
+
+        nav ul li:last-child {
+            margin-right: 0;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        #user-info {
+            display: flex;
+            align-items: center;
+            position: relative;
+            cursor: pointer;
+            color: white;
+        }
+
+        #user-info img {
+            margin-right: 10px;
+        }
+
+        .menu-bar {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background-color: white;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            display: none;
+            padding: 5px 0;
+            min-width: 120px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+        }
+
+        #user-info:hover .menu-bar {
+            display: block;
+        }
+
+        .menu-bar a {
+            color: #333 !important;
+            padding: 8px 15px;
+            display: block;
+            text-decoration: none;
+        }
+
+        .menu-bar a:hover {
+            background-color: #f5f5f5;
+        }
+
+        .active {
+            color: #ff6b6b !important;
+            font-weight: bold;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #434141;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .blog-details img {
+            display: block;
+            width: 80%;
+            height: 600px;
+            margin: 0 auto 20px;
+            /* Centers the image horizontally */
+            border-radius: 8px;
+        }
+
+
+        .blog-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .blog-meta span {
+            background-color: #f8f9fa;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .blog-content {
+            line-height: 1.6;
+            color: #fdfafa;
+            font-size: 1.1rem;
+        }
+
+        .error {
+            text-align: center;
+            color: #ff6b6b;
+        }
+
+        .error i {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        .blog-title {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #f2ecec;
+        }
+
+        .author-name {
+            font-weight: bold;
+            color: #1f1c1c;
+        }
+
+        .blog-date,
+        .blog-location,
+        .blog-category {
+            color: #666;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="logo">
+            <img src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1d/dd/24/8d/caption.jpg?w=1200&h=1200&s=1"
+                alt="The World Travel Guy" style="width: 100px; height: 70px;">
+            <h1>Travel Tales</h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="blog.html"><i class="fas fa-blog"></i> Blogs</a></li>
+                <li><a href="create-blog.html"><i class="fas fa-pencil-alt"></i> Create a Blog</a></li>
+                <li id="user-info" style="display: none;">
+                    <img id="profile-img" src="" alt="Profile Image"
+                        style="width: 40px; height: 40px; border-radius: 50%;">
+                    <span id="username"></span>
+                    <div class="menu-bar">
+                        <a href="#" id="logout-btn">Logout</a>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div class="container">
+            <div id="blog-details-container">
+                <!-- Blog details will be dynamically inserted here -->
+            </div>
+        </div>
+    </main>
+
+    <script>
+        function checkLoginStatus() {
+            const user = JSON.parse(localStorage.getItem('user'));
+            if (user) {
+                document.getElementById('user-info').style.display = 'flex';
+                document.getElementById('username').textContent = user.username;
+                document.getElementById('profile-img').src = "./defppic.jpg";
+            } else {
+                document.getElementById('user-info').style.display = 'none';
+            }
+        }
+
+        document.getElementById('logout-btn')?.addEventListener('click', (e) => {
+            e.preventDefault();
+            localStorage.removeItem('user');
+            localStorage.removeItem('token');
+            window.location.href = 'login.html';
+        });
+
+        // Call checkLoginStatus when the page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            checkLoginStatus();
+            fetchBlogDetails();
+        });
+
+        async function fetchBlogDetails() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const blogId = urlParams.get('id');
+
+            if (!blogId) {
+                document.getElementById('blog-details-container').innerHTML = `
+                    <div class="error">
+                        <i class="fas fa-exclamation-circle"></i>
+                        <p>Blog not found.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            try {
+                const response = await fetch(`http://localhost:5501/api/blog/${blogId}`);
+                const blog = await response.json();
+
+                if (response.ok) {
+                    document.getElementById('blog-details-container').innerHTML = `
+                        <article class="blog-details">
+                            <h2 class="blog-title">${blog.title}</h2>
+                            <img src="${blog.image || './defppic.jpg'}" alt="${blog.title}" class="blog-image">
+                            <div class="blog-meta">
+                                <span class="author-name">${blog.user?.username || 'Anonymous'}</span>
+                                <span class="blog-date">${new Date(blog.date).toLocaleDateString('en-US', {
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric'
+                    })}</span>
+                                <span class="blog-location">${blog.location}, ${blog.country}</span>
+                                <span class="blog-category">${blog.category}</span>
+                            </div>
+                            <p class="blog-content">${blog.content}</p>
+                        </article>
+                    `;
+                } else {
+                    throw new Error(blog.message || 'Failed to fetch blog details');
+                }
+            } catch (error) {
+                console.error('Error fetching blog details:', error);
+                document.getElementById('blog-details-container').innerHTML = `
+                    <div class="error">
+                        <i class="fas fa-exclamation-circle"></i>
+                        <p>Error loading blog details: ${error.message}</p>
+                    </div>
+                `;
+            }
+        }
+    </script>
+</body>
+
+</html>

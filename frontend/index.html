@@ -58,9 +58,9 @@
         </div>
         <nav>
             <ul id="nav-list">
-                <li><a href="create-blog.html" class="create-blog"><i class="fas fa-pencil-alt"></i> Create a Travel
+                <li><a href="create-blogs.html" class="create-blog"><i class="fas fa-pencil-alt"></i> Create a Travel
                         Blog</a></li>
-                <li><a href="blog.html"><i class="fas fa-blog"></i> BLOGS</a></li>
+                <li><a href="blogs.html"><i class="fas fa-blog"></i> BLOGS</a></li>
                 <li><a href="login.html" id="login-link"><i class="fas fa-sign-in-alt"></i> LOGIN</a></li>
                 <li><a href="register.html" id="register-link"><i class="fas fa-user-plus"></i> REGISTER</a></li>
 
@@ -92,7 +92,7 @@
                 document.getElementById('register-link').style.display = 'none';
                 document.getElementById('user-info').style.display = 'flex';
                 document.getElementById('username').textContent = user.username;
-                document.getElementById('profile-img').src = "./defppic.jpg";
+                document.getElementById('profile-img').src = user.profileImage || "./defppic.jpg";
             } else {
                 document.getElementById('login-link').style.display = 'inline-block';
                 document.getElementById('register-link').style.display = 'inline-block';

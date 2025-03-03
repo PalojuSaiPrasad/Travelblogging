@@ -110,7 +110,7 @@
         <nav>
             <ul>
                 <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
-                <li><a href="blog.html"><i class="fas fa-blog"></i> Blogs</a></li>
+                <li><a href="blogs.html"><i class="fas fa-blog"></i> Blogs</a></li>
                 <li id="user-info" style="display: none;">
                     <img id="profile-img" src="" alt="Profile Image">
                     <span id="username"></span>
@@ -199,7 +199,7 @@
 
             document.getElementById('user-info').style.display = 'flex';
             document.getElementById('username').textContent = user.username;
-            document.getElementById('profile-img').src = "./defppic.jpg";
+            document.getElementById('profile-img').src = user.profileImage || "./defppic.jpg";
             document.getElementById('create-blog-form').style.display = 'block';
             document.getElementById('login-prompt').style.display = 'none';
             return true;
@@ -244,14 +244,14 @@
                     }
                 })
                 alert('Blog published successfully!');
-                window.location.href = 'blog.html';
+                window.location.href = 'blogs.html';
             } catch (error) {
                 console.error('Error details:', error);
-                window.location.href = 'blog.html';
+                window.location.href = 'blogs.html';
             } finally {
                 submitButton.disabled = false;
                 spinner.style.display = 'none';
-                window.location.href = 'blog.html';
+                window.location.href = 'blogs.html';
             }
         }
         if (!checkLoginStatus()) {
@@ -259,5 +259,4 @@
         }
     </script>
 </body>
-
 </html>

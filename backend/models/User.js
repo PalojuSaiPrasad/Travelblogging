@@ -23,7 +23,7 @@ const userSchema = new mongoose.Schema({
     },
     profileImage: {
         type: String,
-        default: './defppic.jpg'
+        default: 'https://via.placeholder.com/150'
     },
     isVerified: {
         type: Boolean,
