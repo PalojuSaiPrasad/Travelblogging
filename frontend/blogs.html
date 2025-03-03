@@ -344,7 +344,7 @@
             <ul>
                 <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
                 <li><a href="blogs.html" class="active"><i class="fas fa-blog"></i> Blogs</a></li>
-                <li><a href="create-blogs.html"><i class="fas fa-pencil-alt"></i> Create a Blog</a></li>
+                <li><a href="create-blog.html"><i class="fas fa-pencil-alt"></i> Create a Blog</a></li>
                 <li id="user-info" style="display: none;">
                     <img id="profile-img" src="" alt="Profile Image"
                         style="width: 40px; height: 40px; border-radius: 50%;">
@@ -385,7 +385,7 @@
             if (user) {
                 document.getElementById('user-info').style.display = 'flex';
                 document.getElementById('username').textContent = user.username;
-                document.getElementById('profile-img').src = user.profileImage || "./defppic.jpg";
+                document.getElementById('profile-img').src = "./defppic.jpg";
             } else {
                 document.getElementById('user-info').style.display = 'none';
             }
