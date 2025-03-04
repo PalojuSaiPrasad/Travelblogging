@@ -14,6 +14,37 @@
             color: black;
         }
 
+        nav {
+            background: #333;
+            padding: 10px 0;
+            text-align: center;
+        }
+
+        #nav-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        #nav-list li {
+            display: inline;
+        }
+
+        #nav-list li a {
+            text-decoration: none;
+            color: white;
+            padding: 10px 15px;
+            font-size: 1rem;
+        }
+
+        #nav-list li a:hover {
+            background: #555;
+            border-radius: 5px;
+        }
+
         .container {
             max-width: 800px;
             margin: 20px auto;
@@ -131,6 +162,17 @@
 </head>
 
 <body>
+
+    <nav>
+        <ul id="nav-list">
+            <li><a href="create-blog.html" class="create-blog"><i class="fas fa-pencil-alt"></i> Create a Travel
+                    Blog</a></li>
+            <li><a href="blogs.html"><i class="fas fa-blog"></i> BLOGS</a></li>
+            <!-- <li><a href="login.html" id="login-link"><i class="fas fa-sign-in-alt"></i> LOGIN</a></li>
+            <li><a href="register.html" id="register-link"><i class="fas fa-user-plus"></i> REGISTER</a></li> -->
+        </ul>
+    </nav>
+
     <div class="container">
         <h1 class="blog-title" id="blog-title">Loading...</h1>
         <p class="blog-meta" id="blog-meta"></p>
@@ -216,7 +258,7 @@
                 return;
             }
 
-            const token = localStorage.getItem("token"); // Assuming user authentication is stored in local storage
+            const token = localStorage.getItem("token");
             if (!token) {
                 alert("You must be logged in to comment.");
                 return;
@@ -238,17 +280,16 @@
                 }
 
                 alert("Comment added successfully!");
-                document.getElementById("comment-text").value = ""; // Clear input
-                fetchBlog(); // Reload blog with new comments
-
+                document.getElementById("comment-text").value = "";
+                fetchBlog();
             } catch (error) {
                 alert(error.message);
-                console.error("Error adding comment:", error);
             }
         }
 
         document.addEventListener('DOMContentLoaded', fetchBlog);
     </script>
+
 </body>
 
 </html>
