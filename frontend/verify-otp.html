@@ -37,7 +37,7 @@
         document.addEventListener('DOMContentLoaded', () => {
             const urlParams = new URLSearchParams(window.location.search);
             const email = urlParams.get('email');
-            
+
             if (!email) {
                 alert('Email parameter is missing');
                 window.location.href = 'register.html';
@@ -53,7 +53,7 @@
                 const minutes = Math.floor(timeLeft / 60);
                 const seconds = timeLeft % 60;
                 countdownEl.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
-                
+
                 if (timeLeft <= 0) {
                     clearInterval(timer);
                     countdownEl.textContent = '0:00';
@@ -69,7 +69,7 @@
 
                 try {
                     console.log('Sending OTP verification request:', { email, otp });
-                    const response = await fetch('https://travelblogging.onrender.com/api/auth/verify-otp', {
+                    const response = await fetch('http://localhost:5501/api/auth/verify-otp', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
@@ -96,7 +96,7 @@
             document.getElementById('resend-otp')?.addEventListener('click', async (e) => {
                 e.preventDefault();
                 try {
-                    const response = await fetch('https://travelblogging.onrender.com/api/auth/resend-otp', {
+                    const response = await fetch('http://localhost:5501/api/auth/resend-otp', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
