@@ -288,7 +288,7 @@
                     formData.append('image', imageFile);
                 }
 
-                const response = await axios.post('http://localhost:5501/api/blog', formData, {
+                const response = await axios.post('https://travelblogging.onrender.com/api/blog', formData, {
                     headers: {
                         "Authorization": `Bearer ${token}`,
                         "Content-Type": `multipart/form-data`,
