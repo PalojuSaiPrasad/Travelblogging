@@ -70,7 +70,57 @@
             display: flex;
         }
 
-        /* Add loading spinner styles */
+        .container {
+            max-width: 800px;
+            /* Increased width */
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 98%;
+            /* overflow-x: visible; */
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+        }
+
+        .submit-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .submit-container button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .submit-container button:hover {
+            background-color: #0056b3;
+        }
+
         .spinner {
             display: none;
             width: 20px;
@@ -92,7 +142,6 @@
             }
         }
 
-        /* Add disabled button style */
         button:disabled {
             opacity: 0.7;
             cursor: not-allowed;
@@ -212,6 +261,7 @@
             localStorage.removeItem('token');
             window.location.href = 'login.html';
         });
+
         async function handleSubmit(e) {
             e.preventDefault();
             const submitButton = document.getElementById('submit-blog-btn');
@@ -225,7 +275,7 @@
                 if (!token) {
                     throw new Error('Please login to create a blog');
                 }
-                alert('Blog published successfully!');
+
                 const formData = new FormData();
                 formData.append('title', document.getElementById('title').value);
                 formData.append('location', document.getElementById('location').value);
@@ -237,23 +287,26 @@
                 if (imageFile) {
                     formData.append('image', imageFile);
                 }
+
                 const response = await axios.post('http://localhost:5501/api/blog', formData, {
                     headers: {
                         "Authorization": `Bearer ${token}`,
-                        "Content-Type": `multipart/form-data; boundary=${formData._boundary}`,
+                        "Content-Type": `multipart/form-data`,
                     }
-                })
+                });
+
+                const blogId = response.data._id;
                 alert('Blog published successfully!');
-                window.location.href = 'blogs.html';
+                window.location.href = `blog_details.html?id=${blogId}`;
             } catch (error) {
                 console.error('Error details:', error);
-                window.location.href = 'blogs.html';
+                alert('An error occurred while publishing the blog.');
             } finally {
                 submitButton.disabled = false;
                 spinner.style.display = 'none';
-                window.location.href = 'blogs.html';
             }
         }
+
         if (!checkLoginStatus()) {
             console.log('User not logged in');
         }
